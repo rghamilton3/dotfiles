@@ -1,0 +1,4 @@
+pane	0	1	:zsh	1	:*	1	:/home/rghamilton3/src/opencv-3.1.0/build	0	make	:make -j8
+pane	0	1	:zsh	1	:*	2	:/home/rghamilton3/src/tensorflow	1	zsh	:newgrp
+window	0	1	1	:*	b34b,148x123,0,0[148x61,0,0,2,148x61,0,62,5]
+state	0	

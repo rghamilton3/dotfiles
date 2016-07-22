@@ -1,0 +1,4 @@
+pane	0	1	:zsh	1	:*	1	:/home/rghamilton3	0	vim	:vim /home/rghamilton3/.vimrc
+pane	0	1	:zsh	1	:*	2	:/home/rghamilton3/.dotfiles/vim/bundle/YouCompleteMe	1	zsh	:
+window	0	1	1	:*	9d56,148x59,0,0[148x29,0,0,0,148x29,0,30,3]
+state	0	

@@ -1,0 +1,249 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins go here
+" Basic tmux support
+Plugin 'tpope/vim-tbone'	
+" File-type sensible comments
+Plugin 'tomtom/tcomment_vim'			
+" A code-completion engine
+Plugin 'valloric/YouCompleteMe'
+" YCM extra conf generator
+Plugin 'rdnetto/YCM-Generator'
+" Syntax checking
+Plugin 'scrooloose/syntastic'
+" PEP8 syntax checking
+Plugin 'nvie/vim-flake8'
+" Multiple selection feature 
+Plugin 'terryma/vim-multiple-cursors'
+" Maintains a history of previous yanks, changes and deletes
+Plugin 'vim-scripts/YankRing.vim'
+" Preview colours in source code while editing
+Plugin 'ap/vim-css-color'
+" Work with python virtualenvs
+Plugin 'jmcantrell/vim-virtualenv'
+" Snippets engine
+Plugin 'SirVer/ultisnips'
+" Actual snippets
+Plugin 'honza/vim-snippets'
+" Edit Files using sudo or su or any other tool
+Plugin 'chrisbra/SudoEdit.vim'
+" Text filtering and alignment
+Plugin 'godlygeek/tabular'
+" Simple templates
+Plugin 'aperezdc/vim-template'
+" Visualize your Vim undo tree.
+Plugin 'sjl/gundo.vim'
+" Status/tabline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" Rust
+Plugin 'rust-lang/rust.vim'
+" Better code folding
+Plugin 'tmhedberg/SimpylFold'
+" Conform to PEP8 standards
+Plugin 'vim-scripts/indentpython.vim'
+" Tmux.conf support
+Plugin 'tmux-plugins/vim-tmux'
+" Better tmux iteraction
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+" Continuously updated session files
+Plugin 'tpope/vim-obsession'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+syntax on
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+
+" Flake8
+let python_highlight_all=1
+
+" Shortcut for goto current definition
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR
+
+" UltiSnips trigger configuration 
+let g:UltiSnipsExpandTrigger="<S-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Artistic style
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle
+autocmd BufNewFile,BufRead *.hpp set formatprg=astyle
+autocmd BufNewFile,BufRead *.c set formatprg=astyle
+autocmd BufNewFile,BufRead *.h set formatprg=astyle
+
+" Airline
+let g:airline_theme = 'base16'
+let g:airline_powerline_fonts = 1
+
+" Map start key separately from next key
+let g:multi_cursor_start_key='<F6>'
+
+" SimpylFold
+"Show docstrings for folded code
+let g:SimpylFold_docstring_preview=1
+
+" In order for SimpylFold to load in certain cases
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+set showtabline=2
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set t_Co=256
+set term=xterm-256color
+set number
+set ruler
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+set ai "Auto indent
+set si "Smart indent
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+" Turn on persistent undo
+try
+    set undodir=~/.vim_runtime/temp_dirs/undodir
+    set undofile
+catch
+endtry
+
+" Allow VIM to use system clipboard
+set clipboard=unnamedplus
+
+" Where splits should occur
+set splitbelow
+set splitright
+
+set background=dark
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Keymapping
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Map <leader> to ','
+map , <leader>
+
+" Map Explorer Mode to <F2>
+nmap <F2> :Explore<CR>
+let g:netrw_liststyle=3
+
+" Map ESC to jk in insert mode
+imap jk <Esc>
+
+ " Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+" Open vimrc
+map <leader>ev :e ~/.vimrc<cr>
+
+" Source vimrc
+map <leader>sv :source ~/.vimrc<cr>
+
+" Toggle paste
+map <F3> :setlocal paste!<cr>
+
+" Easier moving of code blocks
+" Try to go into visual mode (v), then select several lines of code here and
+" then press ``>`` several times.
+noremap < <gv  " better indentation
+noremap > >gv  " better indentation
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
+endfunction
