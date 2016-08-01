@@ -10,8 +10,8 @@ source ~/.dotfiles/zsh/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle archlinux
 antigen bundle colorize
-antigen bundle command-not-found
 antigen bundle common-aliases
 antigen bundle git
 antigen bundle pip
@@ -44,6 +44,9 @@ zstyle ':completion:*' menu select
 # Auto complete aliases
 setopt COMPLETE_ALIASES
 
+# Auto correct commands 
+setopt correct_all
+
 # No duplicates in history
 setopt HIST_IGNORE_DUPS
 
@@ -64,14 +67,6 @@ alias help=run-help
 
 # Persistent rehash
 zstyle ':completion:*' rehash true
-
-export WORKON_HOME=$HOME/.virtualenvs   
-export PROJECT_HOME=$HOME/workspace/python     
-source /usr/local/bin/virtualenvwrapper.sh
-export PATH="/home/rghamilton3/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 
 # Tell antigen that you're done.
 antigen apply
