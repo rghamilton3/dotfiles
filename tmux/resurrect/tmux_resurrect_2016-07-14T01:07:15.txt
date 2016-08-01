@@ -1,4 +1,0 @@
-pane	0	1	:python3	1	:*	1	:/home/rghamilton3/src/pcl-pcl-1.8.0/build	1	python3	:python3
-pane	0	1	:python3	1	:*	2	:/home/rghamilton3/src/tensorflow	0	zsh	:newgrp
-window	0	1	1	:*	b34b,148x123,0,0[148x61,0,0,2,148x61,0,62,5]
-state	0	

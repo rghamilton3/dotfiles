@@ -1,8 +1,0 @@
-pane	0	1	:zsh	1	:*	1	:/home/rghamilton3/src/caffe/build	1	zsh	:
-pane	0	1	:zsh	1	:*	2	:/home/rghamilton3/src/pcl-pcl-1.8.0/build	0	zsh	:
-pane	1	1	:zsh	1	:*	1	:/home/rghamilton3/workspace/cuda	1	zsh	:
-pane	2	1	:vim	1	:*	1	:/home/rghamilton3/workspace/cv/intro_to_cv/ps0	1	vim	:vim ps0.py
-window	0	1	1	:*	3348,148x123,0,0[148x61,0,0,1,148x61,0,62,2]
-window	1	1	1	:*	ae60,80x23,0,0,3
-window	2	1	1	:*	94f1,148x123,0,0,4
-state	2	
