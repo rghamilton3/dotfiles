@@ -17,3 +17,5 @@ alias shutdown='sudo shutdown -h now'
 alias ws="cd ~/workspace"
 alias cv="cd ~/workspace/cv"
 alias src="cd ~/src"
+alias rstmp="sudo mount -o remount,size=8G,noatime /tmp"
+alias clntmp="su -c 'for i in /tmp/* ; do rm -r \"$i\" ; done'"
