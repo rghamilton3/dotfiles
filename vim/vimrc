@@ -13,8 +13,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugins go here
 " Basic tmux support
 Plugin 'tpope/vim-tbone'	
-" File-type sensible comments
-Plugin 'tomtom/tcomment_vim'			
+" Comment stuff out
+Plugin 'tpope/vim-commentary'			
 " A code-completion engine
 Plugin 'valloric/YouCompleteMe'
 " YCM extra conf generator
@@ -35,6 +35,8 @@ Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'SirVer/ultisnips'
 " Actual snippets
 Plugin 'honza/vim-snippets'
+" Snippets for Node
+Plugin 'jamescarr/snipmate-nodejs'
 " Edit Files using sudo or su or any other tool
 Plugin 'chrisbra/SudoEdit.vim'
 " Text filtering and alignment
@@ -58,6 +60,16 @@ Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 " Continuously updated session files
 Plugin 'tpope/vim-obsession'
+" Tools and utilities for Node.js
+Plugin 'moll/vim-node'
+" Enhanced JavaScript Syntax for Vim
+Plugin 'jelera/vim-javascript-syntax'
+" Syntax file for JavaScript libraries
+Plugin 'othree/javascript-libraries-syntax.vim'
+" Quoting/parenthesizing made simple
+Plugin 'tpope/vim-surround'
+" Code analysis for JavaScript
+Plugin 'ternjs/tern_for_vim'
 
 
 " All of your Plugins must be added before the following line
@@ -77,18 +89,21 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+let g:syntastic_check_on_wq = 0
 
 " Flake8
 let python_highlight_all=1
 
+" YouCompleteMe
 " Shortcut for goto current definition
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-" UltiSnips trigger configuration 
-let g:UltiSnipsExpandTrigger="<S-tab>"
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger="<c-v>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 
 " Artistic style
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle
@@ -111,6 +126,9 @@ let g:SimpylFold_docstring_preview=1
 autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
+" JavaScript libraries in use
+let g:used_javascript_libs = 'jquery'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations
@@ -124,6 +142,12 @@ set t_Co=256
 set term=xterm-256color
 set number
 set ruler
+
+" Tab completion criteria
+set wildmode=longest,list,full
+
+" Show completion options
+set wildmenu
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -213,6 +237,9 @@ map <F3> :setlocal paste!<cr>
 " then press ``>`` several times.
 noremap < <gv  " better indentation
 noremap > >gv  " better indentation
+
+" Map Esc to jk
+inoremap jk <Esc>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
