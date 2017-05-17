@@ -1,9 +1,9 @@
 export WORKON_HOME=~/.virtualenvs
 export PROJECT_HOME=$HOME/workspace/python     
-source /usr/bin/virtualenvwrapper.sh
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-export GOPATH=~/workspace/go
+source /opt/ros/kinetic/setup.zsh
