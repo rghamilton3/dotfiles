@@ -22,9 +22,6 @@
 [submodule "tmux/plugins/tmux-yank"]
 	path = tmux/plugins/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
-[submodule "vim/plug"]
-	path = vim/plugged
-	url = https://github.com/junegunn/vim-plug
 [submodule "vim/vim-plug"]
 	path = vim/vim-plug
 	url = https://github.com/junegunn/vim-plug
