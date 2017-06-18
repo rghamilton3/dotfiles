@@ -1,81 +1,78 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+function! BuildColorCoded(info)
+    execute "!" . "bash ~/.vim/installCCDeps.sh"
+    if !isdirectory('build')
+        call mkdir('build', 'p')
+        echo "Created Color Coded build directory"
+    endif
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+    cd build
+    echo "Changed to build directory"
+    silent !clear
+    execute "!" . "cmake .."
+    execute "!" . "make -j8"
+    execute "!" . "make -j8 install"
+    execute "!" . "make clean"
+    execute "!" . "make clean_clang"
+endfunction
+
+function! InstallYCM(info)
+    execute "!" . "bash ~/.vim/installYCM.sh"
+endfunction
 
 " Plugins go here
 " Basic tmux support
-Plugin 'tpope/vim-tbone'	
+Plug 'tpope/vim-tbone' | Plug 'tmux-plugins/vim-tmux' | Plug 'tmux-plugins/vim-tmux-focus-events'
 " Comment stuff out
-Plugin 'tpope/vim-commentary'			
+Plug 'tpope/vim-commentary'			
+" A vim plugin for libclang-based highlighting in C, C++, ObjC
+Plug 'jeaye/color_coded', { 'do': function('BuildColorCoded') }
 " A code-completion engine
-Plugin 'valloric/YouCompleteMe'
-" YCM extra conf generator
-Plugin 'rdnetto/YCM-Generator'
+Plug 'valloric/YouCompleteMe', { 'do': function('InstallYCM') }
+" Generates config files for YouCompleteMe
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 " Syntax checking
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 " PEP8 syntax checking
-Plugin 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 " Multiple selection feature 
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 " Maintains a history of previous yanks, changes and deletes
-Plugin 'vim-scripts/YankRing.vim'
+Plug 'vim-scripts/YankRing.vim'
 " Preview colours in source code while editing
-Plugin 'ap/vim-css-color'
+Plug 'ap/vim-css-color'
 " Work with python virtualenvs
-Plugin 'jmcantrell/vim-virtualenv'
-" Snippets engine
-Plugin 'SirVer/ultisnips'
-" Actual snippets
-Plugin 'honza/vim-snippets'
-" Snippets for Node
-Plugin 'jamescarr/snipmate-nodejs'
+Plug 'jmcantrell/vim-virtualenv'
+" Snippets engine and snippes
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'jamescarr/snipmate-nodejs'
 " Edit Files using sudo or su or any other tool
-Plugin 'chrisbra/SudoEdit.vim'
-" Text filtering and alignment
-Plugin 'godlygeek/tabular'
-" Simple templates
-Plugin 'aperezdc/vim-template'
-" Visualize your Vim undo tree.
-Plugin 'sjl/gundo.vim'
-" Status/tabline
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-" Rust
-Plugin 'rust-lang/rust.vim'
-" Better code folding
-Plugin 'tmhedberg/SimpylFold'
-" Conform to PEP8 standards
-Plugin 'vim-scripts/indentpython.vim'
-" Tmux.conf support
-Plugin 'tmux-plugins/vim-tmux'
-" Better tmux iteraction
-Plugin 'tmux-plugins/vim-tmux-focus-events'
-" Continuously updated session files
-Plugin 'tpope/vim-obsession'
-" Tools and utilities for Node.js
-Plugin 'moll/vim-node'
-" Enhanced JavaScript Syntax for Vim
-Plugin 'jelera/vim-javascript-syntax'
-" Syntax file for JavaScript libraries
-Plugin 'othree/javascript-libraries-syntax.vim'
+Plug 'chrisbra/SudoEdit.vim'
+" Shorthand notation
+Plug 'junegunn/vim-easy-align'
 " Quoting/parenthesizing made simple
-Plugin 'tpope/vim-surround'
-" Code analysis for JavaScript
-Plugin 'ternjs/tern_for_vim'
-
+Plug 'tpope/vim-surround'
+" Simple templates
+Plug 'aperezdc/vim-template'
+" Visualize your Vim undo tree.
+Plug 'sjl/gundo.vim'
+" Status/tabline
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+" Better code folding
+Plug 'tmhedberg/SimpylFold'
+" Conform to PEP8 standards
+Plug 'vim-scripts/indentpython.vim'
+" Continuously updated session files
+Plug 'tpope/vim-obsession'
+" Tools and utilities for JS and Node.js
+Plug 'moll/vim-node' | Plug 'jelera/vim-javascript-syntax' | Plug 'othree/javascript-libraries-syntax.vim' | Plug 'ternjs/tern_for_vim'
+" Vim plugin for ROS development
+Plug 'taketwo/vim-ros'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-syntax on
+" Initialize plugin system
+call plug#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
