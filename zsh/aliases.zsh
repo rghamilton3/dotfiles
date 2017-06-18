@@ -14,10 +14,9 @@ alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-u
 alias reboot='sudo reboot'
 alias shutdown='sudo shutdown -h now'
 
-alias ws="cd ~/Projects"
+alias ws="cd ~/workspace"
 alias src="cd ~/source_builds"
 alias rstmp="sudo mount -o remount,size=8G,noatime /tmp"
 alias clntmp="su -c 'for i in /tmp/* ; do rm -r \"$i\" ; done'"
-alias tx1="ssh -X ubuntu@192.168.1.175"
 
 alias rosycm="curl https://gist.githubusercontent.com/galou/92a2d05dd772778f86f2/raw/734b21381d2627fdbf050864e2e4f0bb6f3f2598/.ycm_extra_conf.py"
