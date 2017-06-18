@@ -95,7 +95,11 @@ let python_highlight_all=1
 " Shortcut for goto current definition
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+let g:ycm_confirm_extra_conf = 0
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger="<c-v>"
