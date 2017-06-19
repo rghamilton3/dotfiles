@@ -23,10 +23,26 @@ function! InstallYCM(info)
 endfunction
 
 " Plugins go here
-" Basic tmux support
-Plug 'tpope/vim-tbone' | Plug 'tmux-plugins/vim-tmux' | Plug 'tmux-plugins/vim-tmux-focus-events'
+" Tmux support
+Plug 'tpope/vim-tbone' | Plug 'tmux-plugins/vim-tmux' | Plug 'tmux-plugins/vim-tmux-focus-events' | Plug 'christoomey/vim-tmux-navigator'
+" Vim motions on speed
+Plug 'easymotion/vim-easymotion' | Plug 'haya14busa/vim-easyoperator-line' | Plug 'haya14busa/vim-easyoperator-phrase'
+" Defines a new text object representing lines of code at the same indent level
+Plug 'michaeljsmith/vim-indent-object'
+" Vim undo tree visualizer
+Plug 'simnalamburt/vim-mundo'
+" Interactive command execution
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Comment stuff out
 Plug 'tpope/vim-commentary'			
+" Git wrapper and commit browser
+Plug 'tpope/vim-fugitive' | Plug 'int3/vim-extradite'
+" Displaying indent levels in code
+Plug 'nathanaelkane/vim-indent-guides'
+" Fuzzy file, buffer, mru, tag, etc finder
+Plug 'ctrlpvim/ctrlp.vim'
+" Displays tags in a window
+Plug 'majutsushi/tagbar'
 " A vim plugin for libclang-based highlighting in C, C++, ObjC
 Plug 'jeaye/color_coded', { 'do': function('BuildColorCoded') }
 " A code-completion engine
@@ -55,8 +71,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 " Simple templates
 Plug 'aperezdc/vim-template'
-" Visualize your Vim undo tree.
-Plug 'sjl/gundo.vim'
 " Status/tabline
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " Better code folding
@@ -131,6 +145,8 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 " JavaScript libraries in use
 let g:used_javascript_libs = 'jquery'
 
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations
@@ -154,7 +170,7 @@ set wildmenu
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
 set nowb
 set noswapfile
@@ -169,11 +185,8 @@ autocmd BufReadPost *
     \ endif
 
 " Turn on persistent undo
-try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
-catch
-endtry
+set undofile
+set undodir=~/.vim/undo
 
 " Allow VIM to use system clipboard
 set clipboard=unnamedplus
