@@ -24,7 +24,7 @@ Plug 'tpope/vim-tbone' | Plug 'tmux-plugins/vim-tmux' | Plug 'tmux-plugins/vim-t
 Plug 'easymotion/vim-easymotion' | Plug 'haya14busa/vim-easyoperator-line' | Plug 'haya14busa/vim-easyoperator-phrase'
 " Defines a new text object representing lines of code at the same indent level
 Plug 'michaeljsmith/vim-indent-object'
-" Vim undo tree visualizer 
+" Vim undo tree visualizer
 Plug 'simnalamburt/vim-mundo'
 " Interactive command execution
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
