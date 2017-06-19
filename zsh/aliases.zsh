@@ -18,3 +18,6 @@ alias ws="cd ~/workspace"
 alias src="cd ~/source_builds"
 alias rstmp="sudo mount -o remount,size=8G,noatime /tmp"
 alias clntmp="su -c 'for i in /tmp/* ; do rm -r \"$i\" ; done'"
+
+alias algo="cd ~/workspace/algo"
+alias ac="g++ -pipe -O2 -std=c++14 -lm"
