@@ -20,3 +20,6 @@ alias rstmp="sudo mount -o remount,size=8G,noatime /tmp"
 alias clntmp="su -c 'for i in /tmp/* ; do rm -r \"$i\" ; done'"
 
 alias rosycm="curl https://gist.githubusercontent.com/galou/92a2d05dd772778f86f2/raw/734b21381d2627fdbf050864e2e4f0bb6f3f2598/.ycm_extra_conf.py"
+
+alias algo="cd ~/workspace/algo"
+alias ac="g++ -pipe -O2 -std=c++14 -lm"
