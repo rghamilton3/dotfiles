@@ -1,40 +1,23 @@
 # If tmux not running then start it
 if [ "$TMUX" = "" ]; then tmux -f ~/.tmux.conf; fi
 
-################################################################################
-# Antigen Configuration
-################################################################################
-source ~/.dotfiles/zsh/antigen/antigen.zsh
+# Source antigen and it's config
+# If there is cache available, use it
+if [[ -f ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload ]]; then
+    # Load bundles statically
+    source ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload
+else
+    # If there is no cache available do load and execute antigen
+    source ~/.dotfiles/zsh/antigen/antigen.zsh
+    antigen init ~/.dotfiles/zsh/antigenrc
+fi
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle archlinux
-antigen bundle colorize
-antigen bundle common-aliases
-antigen bundle git
-antigen bundle pip
-antigen bundle python
-antigen bundle systemd
-antigen bundle tmux
-antigen bundle virtualenv
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-# Load the theme.
-antigen theme robbyrussell/oh-my-zsh themes/norm
-
-################################################################################
-# ZSH Configuration
-################################################################################
 # Source .zsh files
 for f in ~/.dotfiles/zsh/*.zsh; do source $f; done
 
 # Auto complete
 autoload -Uz compinit promptinit colors
-compinit
+compinit -d ${HOME}/.zcompdump
 promptinit
 colors
 
