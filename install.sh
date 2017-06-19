@@ -29,7 +29,7 @@ moveFileIfExists() {
                     exit;;
             esac
         done
-    elif [[ -d "$1" ]] || [[ -e "$!" ]] 
+    elif [[ -d "$1" ]] || [[ -e "$1" ]] 
     then
         mv "$1" "$1".bak
     fi
@@ -41,8 +41,18 @@ ln -sv "$INSTALL_DIR"/vim/vimrc "$HOME"/.vimrc
 moveFileIfExists "$HOME"/.vim
 ln -sv "$INSTALL_DIR"/vim/ "$HOME"/.vim
 
-mkdir -p "$HOME"/.vim/autoload
-ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/.vim/autoload/plug.vim
+if [[ -d "$INSTALL_DIR"/vim/autoload ]]
+then
+    moveFileIfExists "$INSTALL_DIR"/vim/autoload/plug.vim
+else
+    mkdir -p "$INSTALL_DIR"/vim/autoload
+fi
+ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$INSTALL_DIR"/vim/autoload/plug.vim
+
+if [[ ! -d "$INSTALL_DIR"/vim/undo ]]
+then
+    mkdir -p "$INSTALL_DIR"/vim/undo
+fi
 
 moveFileIfExists "$HOME"/.zshrc
 ln -sv "$INSTALL_DIR"/zsh/zshrc "$HOME"/.zshrc
