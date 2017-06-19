@@ -4,3 +4,4 @@ tmux/plugins/
 vim/plugged/
 vim/autoload/plug.vim
 vim/.netrwhist
+vim/undo
