@@ -1,3 +1,5 @@
+INSTALL_DIR="$PWD"
+
 moveFileIfExists() {
     if [[ -h "$1" ]]  
     then
@@ -34,25 +36,28 @@ moveFileIfExists() {
 }
 
 moveFileIfExists "$HOME"/.vimrc
-ln -sv "$HOME"/.dotfiles/vim/vimrc "$HOME"/.vimrc
+ln -sv "$INSTALL_DIR"/vim/vimrc "$HOME"/.vimrc
 
 moveFileIfExists "$HOME"/.vim
-ln -sv "$HOME"/.dotfiles/vim/ "$HOME"/.vim
+ln -sv "$INSTALL_DIR"/vim/ "$HOME"/.vim
+
+mkdir -p "$HOME"/.vim/autoload
+ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/.vim/autoload/plug.vim
 
 moveFileIfExists "$HOME"/.zshrc
-ln -sv "$HOME"/.dotfiles/zsh/zshrc "$HOME"/.zshrc
+ln -sv "$INSTALL_DIR"/zsh/zshrc "$HOME"/.zshrc
 
 moveFileIfExists "$HOME"/.zshenv
-ln -sv "$HOME"/.dotfiles/zsh/zshenv "$HOME"/.zshenv
+ln -sv "$INSTALL_DIR"/zsh/zshenv "$HOME"/.zshenv
 
 moveFileIfExists "$HOME"/.tmux.conf
-ln -sv "$HOME"/.dotfiles/tmux/tmux.conf "$HOME"/.tmux.conf
+ln -sv "$INSTALL_DIR"/tmux/tmux.conf "$HOME"/.tmux.conf
 
 moveFileIfExists "$HOME"/.tmux
-ln -sv "$HOME"/.dotfiles/tmux/ "$HOME"/.tmux
+ln -sv "$INSTALL_DIR"/tmux/ "$HOME"/.tmux
 
 moveFileIfExists "$HOME"/.jshintrc
-ln -sv "$HOME"/.dotfiles/node/jshintrc "$HOME"/.jshintrc
+ln -sv "$INSTALL_DIR"/node/jshintrc "$HOME"/.jshintrc
 
 if [[ ! -d "$HOME"/.config/termite ]]
 then
@@ -60,4 +65,4 @@ then
 else
     moveFileIfExists "$HOME"/.config/termite/config
 fi
-ln -sv "$HOME"/.dotfiles/termite/config "$HOME"/.config/termite/config
+ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
