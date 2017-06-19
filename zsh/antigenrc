@@ -1,0 +1,38 @@
+################################################################################
+# Antigen Configuration
+################################################################################
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+antigen bundles <<EOBUNDLES
+    # Oh-My-Zsh
+    autojump # A cd command that learns 
+    colorize # Plugin for highlighting file content
+    command-not-found
+    common-aliases
+    pip
+    python
+    systemd
+    tmux
+    virtualenv
+
+    # Git related
+    git
+    peterhurford/git-aliases.zsh
+    petervanderdoes/git-flow-completion
+    unixorn/git-extra-commands
+    voronkovich/gitignore.plugin.zsh
+
+    # Misc
+    chrissicool/zsh-256color
+    djui/alias-tips
+    fabiokiatkowski/exercism.plugin.zsh
+    hlissner/zsh-autopair
+    zdharma/fast-syntax-highlighting
+    zdharma/history-search-multi-word
+    zuxfoucault/colored-man-pages_mod
+EOBUNDLES
+
+# Load the theme.
+antigen theme robbyrussell/oh-my-zsh themes/norm
