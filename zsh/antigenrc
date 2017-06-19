@@ -5,8 +5,7 @@
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle <<EOBUNDLES
+antigen bundles <<EOBUNDLES
     # Oh-My-Zsh
     autojump # A cd command that learns 
     colorize # Plugin for highlighting file content
@@ -15,13 +14,8 @@ antigen bundle <<EOBUNDLES
     pip
     python
     systemd
-    ubuntu
-    virtualenv
-
-    # Tmux related
     tmux
-    blueyed/6856354
-
+    virtualenv
 
     # Git related
     git
@@ -37,11 +31,8 @@ antigen bundle <<EOBUNDLES
     hlissner/zsh-autopair
     zdharma/fast-syntax-highlighting
     zdharma/history-search-multi-word
-    zuxfoucault/colored-man-pages-mod
+    zuxfoucault/colored-man-pages_mod
 EOBUNDLES
 
 # Load the theme.
 antigen theme robbyrussell/oh-my-zsh themes/norm
-
-antigen init ~/.dotfiles/zsh/antigen/
-
