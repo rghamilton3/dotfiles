@@ -29,6 +29,7 @@ antigen bundles <<EOBUNDLES
     djui/alias-tips
     fabiokiatkowski/exercism.plugin.zsh
     hlissner/zsh-autopair
+    Vifon/deer
     zdharma/fast-syntax-highlighting
     zdharma/history-search-multi-word
     zuxfoucault/colored-man-pages_mod
