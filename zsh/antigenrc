@@ -7,6 +7,7 @@ antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
     # Oh-My-Zsh
+    archlinux
     autojump # A cd command that learns 
     colorize # Plugin for highlighting file content
     command-not-found
