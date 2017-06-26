@@ -10,7 +10,7 @@ YCM_DIR="$HOME"/.vim/plugged/YouCompleteMe
 BUILD_DIR="$YCM_DIR"/build
 
 CLANG_VER=4.0.0
-CLANG_FILE=clang+llvm-"$CLANG_VER"-x86_64-linux-gnu-ubuntu-16.04
+CLANG_FILE=clang+llvm-"$CLANG_VER"-x86_64-linux-gnu-ubuntu-14.04
 CLANG_URL=http://releases.llvm.org/"$CLANG_VER"/"$CLANG_FILE".tar.xz
 
 installPkg() {
@@ -25,7 +25,7 @@ installPkg() {
 
     if ! pacman -Qi "$1" > /dev/null
     then
-        echo "$1"
+        "$INSTALLER" -Sy "$1"
     fi
 }
 
@@ -70,25 +70,11 @@ downloadClang() {
 cd "$YCM_DIR"
 mkBuildDir
 cd "$BUILD_DIR"
-downloadClang
+#downloadClang
 
 installPkg "cmake"
 installPkg "python"
 installPkg "python2"
 
-cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT="$CLANG_DIR" . "$YCM_DIR"/third_party/ycmd/cpp
+cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON . "$YCM_DIR"/third_party/ycmd/cpp
 cmake --build . --target ycm_core --config Release
-
-# Install and build Node support
-installPkg "nodejs"
-installPkg "npm"
-cd "$YCM_DIR"/third_party/ycmd/third_party/tern_runtime
-npm install --production
-
-# Install and build Rust support
-installPkg "rustup"
-installPkg "rust-src"
-installPkg "cargo"
-rustup default stable
-cd "$YCM_DIR"/third_party/ycmd/third_party/racerd
-cargo build --release

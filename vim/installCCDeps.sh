@@ -18,7 +18,7 @@ installPkg() {
 
     if ! pacman -Qi "$1" > /dev/null
     then
-        echo "$1"
+        "$INSTALLER" -Sy "$1"
     fi
 }
 
