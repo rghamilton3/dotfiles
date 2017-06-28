@@ -1,3 +1,7 @@
+if pacman -Qi powerpill > /dev/null
+then
+    export PACMAN=/usr/bin/powerpill
+fi
 export EDITOR=vim
 export VISUAL="$EDITOR"
 
