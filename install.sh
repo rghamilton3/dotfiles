@@ -76,3 +76,19 @@ else
     moveFileIfExists "$HOME"/.config/termite/config
 fi
 ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
+
+if [[ -f /etc/powerpill/powerpill.json ]]
+then
+    echo "Replace Powerpill.json?"
+    select ans in "Yes" "No" "Quit"; do
+        case $ans in
+            Yes )
+                sudo mv /etc/powerpill/powerpill.json /etc/powerpill/powerpill.json.bak
+                break;;
+            No )
+                echo "Quitting...";
+                exit;;
+        esac
+    done
+fi
+sudo ln -sv "$INSTALL_DIR"/powerpill.json /etc/powerpill/powerpill.json
