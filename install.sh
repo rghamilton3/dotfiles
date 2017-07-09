@@ -69,6 +69,7 @@ ln -sv "$INSTALL_DIR"/tmux/ "$HOME"/.tmux
 moveFileIfExists "$HOME"/.jshintrc
 ln -sv "$INSTALL_DIR"/node/jshintrc "$HOME"/.jshintrc
 
+
 if [[ ! -d "$HOME"/.config/termite ]]
 then
     mkdir -p "$HOME"/.config/termite
@@ -76,6 +77,24 @@ else
     moveFileIfExists "$HOME"/.config/termite/config
 fi
 ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
+
+if [[ ! -d "$HOME"/.config/mpd ]]
+then
+    mkdir -p "$HOME"/.config/mpd
+else
+    moveFileIfExists "$HOME"/.config/mpd/mpd.conf
+fi
+ln -sv "$INSTALL_DIR"/mpd.conf "$HOME"/.config/mpd/mpd.conf
+
+if [[ ! -d "$HOME"/.ncmpcpp ]]
+then
+    mkdir -p "$HOME"/.ncmpcpp
+else
+    moveFileIfExists "$HOME"/.ncmpcpp/config
+    moveFileIfExists "$HOME"/.ncmpcpp/bindings
+fi
+ln -sv "$INSTALL_DIR"/ncmpcpp/config "$HOME"/.ncmpcpp/config
+ln -sv "$INSTALL_DIR"/ncmpcpp/bindings "$HOME"/.ncmpcpp/bindings
 
 if [[ -f /etc/powerpill/powerpill.json ]]
 then

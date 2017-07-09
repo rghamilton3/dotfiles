@@ -83,6 +83,8 @@ Plug 'tpope/vim-obsession'
 Plug 'moll/vim-node' | Plug 'jelera/vim-javascript-syntax' | Plug 'othree/javascript-libraries-syntax.vim' | Plug 'ternjs/tern_for_vim'
 " Vim plugin for ROS development
 Plug 'taketwo/vim-ros'
+" CMake Interoperability in Vim
+Plug 'jalcine/cmake.vim'
 
 " All of your Plugins must be added before the following line
 " Initialize plugin system
@@ -110,6 +112,7 @@ let python_highlight_all=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
