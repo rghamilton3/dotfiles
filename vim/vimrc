@@ -27,6 +27,8 @@ endfunction
 Plug 'tpope/vim-tbone' | Plug 'tmux-plugins/vim-tmux' | Plug 'tmux-plugins/vim-tmux-focus-events' | Plug 'christoomey/vim-tmux-navigator'
 " Vim motions on speed
 Plug 'easymotion/vim-easymotion' | Plug 'haya14busa/vim-easyoperator-line' | Plug 'haya14busa/vim-easyoperator-phrase'
+" Full path fuzzy file, buffer, mru, tag, ... finder
+Plug 'ctrlpvim/ctrlp.vim'
 " Defines a new text object representing lines of code at the same indent level
 Plug 'michaeljsmith/vim-indent-object'
 " Vim undo tree visualizer
@@ -44,7 +46,11 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Displays tags in a window
 Plug 'majutsushi/tagbar'
 " A vim plugin for libclang-based highlighting in C, C++, ObjC
-Plug 'jeaye/color_coded', { 'do': function('BuildColorCoded') }
+if !has('nvim')
+    Plug 'jeaye/color_coded', { 'do': function('BuildColorCoded') }
+endif
+" Open a Quickfix item in a window you choose
+Plug 'yssl/QFEnter'
 " A code-completion engine
 Plug 'valloric/YouCompleteMe', { 'do': function('InstallYCM') }
 " Generates config files for YouCompleteMe
@@ -160,9 +166,12 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set t_Co=256
-set term=xterm-256color
+if !has('nvim')
+    set term=xterm-256color
+endif
 set number
 set ruler
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 " Tab completion criteria
 set wildmode=longest,list,full
@@ -223,14 +232,34 @@ map <leader>ba :1,1000 bd!<cr>
 map 0 ^
 
 " Map <leader> to ','
-map , <leader>
+if has('nvim')
+    let mapleader=";"
+    let mapleader=","
+    " Map <Esc> to exit terminal-mode:
+    :tnoremap <Esc> <C-\><C-n>
+    " Use `ALT+{h,j,k,l}` to navigate windows from any mode:
+    :tnoremap <A-h> <C-\><C-N><C-w>h
+    :tnoremap <A-j> <C-\><C-N><C-w>j
+    :tnoremap <A-k> <C-\><C-N><C-w>k
+    :tnoremap <A-l> <C-\><C-N><C-w>l
+    :inoremap <A-h> <C-\><C-N><C-w>h
+    :inoremap <A-j> <C-\><C-N><C-w>j
+    :inoremap <A-k> <C-\><C-N><C-w>k
+    :inoremap <A-l> <C-\><C-N><C-w>l
+    :nnoremap <A-h> <C-w>h
+    :nnoremap <A-j> <C-w>j
+    :nnoremap <A-k> <C-w>k
+    :nnoremap <A-l> <C-w>l
+else
+    map , <leader>
+endif
 
 " Map Explorer Mode to <F2>
 nmap <F2> :Explore<CR>
 let g:netrw_liststyle=3
 
 " Map ESC to jk in insert mode
-imap jk <Esc>
+"imap jk <Esc>
 
  " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
