@@ -38,6 +38,9 @@ moveFileIfExists() {
 moveFileIfExists "$HOME"/.vimrc
 ln -sv "$INSTALL_DIR"/vim/vimrc "$HOME"/.vimrc
 
+moveFileIfExists "$HOME"/.gvimrc
+ln -sv "$INSTALL_DIR"/vim/gvimrc "$HOME"/.gvimrc
+
 moveFileIfExists "$HOME"/.vim
 ln -sv "$INSTALL_DIR"/vim/ "$HOME"/.vim
 

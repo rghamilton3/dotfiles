@@ -1,0 +1,6 @@
+set t_Co=256
+if !has('nvim')
+    set term=xterm-256color
+endif
+
+colorscheme slate
