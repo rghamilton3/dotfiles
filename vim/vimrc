@@ -41,7 +41,7 @@ Plug 'majutsushi/tagbar'
 " A vim plugin for libclang-based highlighting in C, C++, ObjC
 Plug 'jeaye/color_coded', { 'do': function('BuildColorCoded') }
 " A code-completion engine
-Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer' }
+Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer --gocode-completer' }
 " Generates config files for YouCompleteMe
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 " Syntax checking
@@ -77,7 +77,7 @@ Plug 'tpope/vim-obsession'
 " Tools and utilities for JS and Node.js
 Plug 'moll/vim-node' | Plug 'jelera/vim-javascript-syntax' | Plug 'othree/javascript-libraries-syntax.vim' | Plug 'ternjs/tern_for_vim'
 " Vim plugin for ROS development
-Plug 'taketwo/vim-ros'
+"Plug 'taketwo/vim-ros'
 
 " All of your Plugins must be added before the following line
 " Initialize plugin system
@@ -112,10 +112,10 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
 
 " For ROS
-let g:ycm_semantic_triggers = {
-\   'roslaunch' : ['="', '$(', '/'],
-\   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
-\ }
+"let g:ycm_semantic_triggers = {
+"\   'roslaunch' : ['="', '$(', '/'],
+"\   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
+"\ }
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger="<c-v>"
