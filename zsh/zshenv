@@ -1,9 +1,17 @@
 export WORKON_HOME=~/.virtualenvs
 export PROJECT_HOME=$HOME/workspace/python     
 
+source /home/rghamilton3/OpenNI2/OpenNIDevEnvironment
+
+source /opt/intel/tbb/bin/tbbvars.sh intel64
+
+export CAFFE_ROOT=/home/rghamilton3/source_builds/caffe
+export PYTHONPATH=/home/rghamilton3/source_builds/caffe/python:$PYTHONPATH
+
+#source /opt/ros/kinetic/setup.zsh
+
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
-source /opt/ros/kinetic/setup.zsh
