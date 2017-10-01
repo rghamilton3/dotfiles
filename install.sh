@@ -1,3 +1,5 @@
+#! /bin/bash
+
 INSTALL_DIR="$PWD"
 
 moveFileIfExists() {
@@ -34,6 +36,9 @@ moveFileIfExists() {
         mv "$1" "$1".bak
     fi
 }
+
+moveFileIfExists "$HOME"/.xsessionrc
+ln -sv "$INSTALL_DIR"/xsessionrc "$HOME"/.xsessionrc
 
 moveFileIfExists "$HOME"/.vimrc
 ln -sv "$INSTALL_DIR"/vim/vimrc "$HOME"/.vimrc
