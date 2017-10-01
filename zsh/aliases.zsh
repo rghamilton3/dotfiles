@@ -23,3 +23,5 @@ alias rosycm="curl https://gist.githubusercontent.com/galou/92a2d05dd772778f86f2
 
 alias algo="cd ~/workspace/algo"
 alias ac="g++ -pipe -O2 -std=c++14 -lm"
+
+alias make='make -j"$(nproc)"'
