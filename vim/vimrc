@@ -1,23 +1,9 @@
-" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+" Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
-
-function! BuildColorCoded(info)
-    if !isdirectory('build')
-        call mkdir('build', 'p')
-        echo "Created Color Coded build directory"
-    endif
-
-    cd build
-    echo "Changed to build directory"
-    silent !clear
-    execute "!" . "cmake .."
-    execute "!" . "make -j8"
-    execute "!" . "make -j8 install"
-    execute "!" . "make clean"
-    execute "!" . "make clean_clang"
-endfunction
-
 " Plugins go here
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Specific
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tmux support
 Plug 'tpope/vim-tbone' | Plug 'tmux-plugins/vim-tmux' | Plug 'tmux-plugins/vim-tmux-focus-events' | Plug 'christoomey/vim-tmux-navigator'
 " Vim motions on speed
@@ -28,8 +14,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'simnalamburt/vim-mundo'
 " Interactive command execution
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-" Comment stuff out
-Plug 'tpope/vim-commentary'			
 " Git wrapper and commit browser
 Plug 'tpope/vim-fugitive' | Plug 'int3/vim-extradite'
 " Displaying indent levels in code
@@ -38,46 +22,66 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ctrlpvim/ctrlp.vim'
 " Displays tags in a window
 Plug 'majutsushi/tagbar'
-" A vim plugin for libclang-based highlighting in C, C++, ObjC
-Plug 'jeaye/color_coded', { 'do': function('BuildColorCoded') }
-" A code-completion engine
-Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer --gocode-completer' }
-" Generates config files for YouCompleteMe
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-" Syntax checking
-Plug 'scrooloose/syntastic'
-" PEP8 syntax checking
-Plug 'nvie/vim-flake8'
 " Multiple selection feature 
 Plug 'terryma/vim-multiple-cursors'
 " Maintains a history of previous yanks, changes and deletes
 Plug 'vim-scripts/YankRing.vim'
 " Preview colours in source code while editing
 Plug 'ap/vim-css-color'
-" Work with python virtualenvs
-Plug 'jmcantrell/vim-virtualenv'
-" Snippets engine and snippes
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'jamescarr/snipmate-nodejs'
 " Edit Files using sudo or su or any other tool
 Plug 'chrisbra/SudoEdit.vim'
 " Shorthand notation
 Plug 'junegunn/vim-easy-align'
+" Comment stuff out
+Plug 'tpope/vim-commentary'			
 " Quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
-" Simple templates
-Plug 'aperezdc/vim-template'
+" Intelligently reopen files at your last edit position
+Plug 'farmergreg/vim-lastplace'
 " Status/tabline
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-" Better code folding
-Plug 'tmhedberg/SimpylFold'
-" Conform to PEP8 standards
-Plug 'vim-scripts/indentpython.vim'
 " Continuously updated session files
 Plug 'tpope/vim-obsession'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General Programming
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Simple templates
+Plug 'aperezdc/vim-template'
+" A code-completion engine
+Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer --gocode-completer' }
+" Generates config files for YouCompleteMe
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+" Snippets engine and snippes
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'jamescarr/snipmate-nodejs' | Plug 'sudar/vim-arduino-snippets'
+" A collection of language packs for Vim
+Plug 'sheerun/vim-polyglot'
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Language Specific
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Python
+" Better code folding
+Plug 'tmhedberg/SimpylFold'
+" Work with python virtualenvs
+Plug 'jmcantrell/vim-virtualenv'
+" Vim plugin to sort python imports using isort
+Plug 'fisadev/vim-isort'
+
+"" JS/Node
 " Tools and utilities for JS and Node.js
 Plug 'moll/vim-node' | Plug 'jelera/vim-javascript-syntax' | Plug 'othree/javascript-libraries-syntax.vim' | Plug 'ternjs/tern_for_vim'
-" Vim plugin for ROS development
-"Plug 'taketwo/vim-ros'
+
+"" Latex
+Plug 'lervag/vimtex'
+" A Vim Plugin for Lively Previewing LaTeX PDF Output
+Plug 'xuhdev/vim-latex-live-preview'
+
+"" Vimscript
+" Better Vimscript syntax highlighting
+Plug 'vim-jp/syntax-vim-ex'
 
 " All of your Plugins must be added before the following line
 " Initialize plugin system
@@ -87,20 +91,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntastic Config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Flake8
-let python_highlight_all=1
-
-" YouCompleteMe
+"" YouCompleteMe
 " Shortcut for goto current definition
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -111,16 +102,18 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " Don't ask to load config 
 let g:ycm_confirm_extra_conf = 0
 
-" For ROS
-"let g:ycm_semantic_triggers = {
-"\   'roslaunch' : ['="', '$(', '/'],
-"\   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
-"\ }
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger="<c-v>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-n>"
+" Use 'Enter' for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = '<nop>'
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrCarriageReturn()
+    let l:snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return l:snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
 " Artistic style
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle
@@ -134,14 +127,6 @@ let g:airline_powerline_fonts = 1
 
 " Map start key separately from next key
 let g:multi_cursor_start_key='<F6>'
-
-" SimpylFold
-"Show docstrings for folded code
-let g:SimpylFold_docstring_preview=1
-
-" In order for SimpylFold to load in certain cases
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 " JavaScript libraries in use
 let g:used_javascript_libs = 'jquery'
@@ -173,17 +158,20 @@ set encoding=utf8
 
 " Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
-set ai "Auto indent
-set si "Smart indent
+set autoindent
+set smartindent
 
 " Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+augroup last_position
+    autocmd!
+    autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+augroup END
 
 " Turn on persistent undo
 set undofile
@@ -196,8 +184,10 @@ set clipboard=unnamedplus
 set splitbelow
 set splitright
 
-set background=dark
+" In netrw, open selected file in new buffer
+let g:netrw_liststyle=3
 
+set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keymapping
@@ -205,15 +195,14 @@ set background=dark
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
-" Smart way to move between windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" Smart way to move between Vim splits & Tmux panes
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
-
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
 
@@ -223,25 +212,28 @@ map 0 ^
 " Map <leader> to ','
 map , <leader>
 
+" TODO Make netrw more like NERDTree
+" http://ivanbrennan.nyc/blog/2014/01/16/rigging-vims-netrw/
 " Map Explorer Mode to <F2>
 nmap <F2> :Explore<CR>
-let g:netrw_liststyle=3
 
 " Map ESC to jk in insert mode
-imap jk <Esc>
+inoremap jk <Esc>
 
- " Pressing ,ss will toggle and untoggle spell checking
+"" Spell checking shortcuts
+" Toggle spell checking
 map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
+" Move to next misspelled word
 map <leader>sn ]s
+" Move to previous misspelled word
 map <leader>sp [s
+" Add word to own word list
 map <leader>sa zg
+" Suggest correct spelling
 map <leader>s? z=
 
 " Open vimrc
-map <leader>ev :e ~/.vimrc<cr>
-
+map <leader>ev :vsp ~/.vimrc<cr>
 " Source vimrc
 map <leader>sv :source ~/.vimrc<cr>
 
@@ -254,27 +246,26 @@ map <F3> :setlocal paste!<cr>
 noremap < <gv  " better indentation
 noremap > >gv  " better indentation
 
-" Map Esc to jk
-inoremap jk <Esc>
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
-    exe "normal mz"
+    exe 'normal mz'
     %s/\s\+$//ge
-    exe "normal `z"
+    exe 'normal `z'
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
+augroup delete_ws
+    autocmd!
+    autocmd BufWrite *.py :call DeleteTrailingWS()
+    autocmd BufWrite *.coffee :call DeleteTrailingWS()
+augroup END
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr('%')
+    let l:alternateBufNum = bufnr('#')
 
     if buflisted(l:alternateBufNum)
         buffer #
@@ -282,11 +273,17 @@ function! <SID>BufcloseCloseIt()
         bnext
     endif
 
-    if bufnr("%") == l:currentBufNum
+    if bufnr('%') == l:currentBufNum
         new
     endif
 
     if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
+        execute('bdelete! '.l:currentBufNum)
     endif
 endfunction
+
+" Open a new Tmux pane and start vim instance inside it
+function! SplitPane(filename)
+    silent execute '!tmux split-window -h "vim --servername ' . v:servername . ' '  . a:filename '"'
+endfunction
+command! -nargs=1 SPane call SplitPane(<f-args>)<cr>
