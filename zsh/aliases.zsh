@@ -10,18 +10,11 @@ alias chown="chown -c"
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias ls='ls --color=auto --human-readable --group-directories-first --classify'
-alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
+alias update='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'
 alias reboot='sudo reboot'
 alias shutdown='sudo shutdown -h now'
 
 alias ws="cd ~/workspace"
-alias src="cd ~/source_builds"
-alias rstmp="sudo mount -o remount,size=8G,noatime /tmp"
-alias clntmp="su -c 'for i in /tmp/* ; do rm -r \"$i\" ; done'"
-
-alias rosycm="curl https://gist.githubusercontent.com/galou/92a2d05dd772778f86f2/raw/734b21381d2627fdbf050864e2e4f0bb6f3f2598/.ycm_extra_conf.py"
-
-alias algo="cd ~/workspace/algo"
-alias ac="g++ -pipe -O2 -std=c++14 -lm"
+alias src="cd ~/Storage/source_builds"
 
 alias make='make -j"$(nproc)"'
