@@ -40,6 +40,7 @@ moveFileIfExists() {
 moveFileIfExists "$HOME"/.xsessionrc
 ln -sv "$INSTALL_DIR"/xsessionrc "$HOME"/.xsessionrc
 
+# VIM
 moveFileIfExists "$HOME"/.vimrc
 ln -sv "$INSTALL_DIR"/vim/vimrc "$HOME"/.vimrc
 
@@ -59,21 +60,21 @@ then
     mkdir -p "$INSTALL_DIR"/vim/undo
 fi
 
+# ZSH
 moveFileIfExists "$HOME"/.zshrc
 ln -sv "$INSTALL_DIR"/zsh/zshrc "$HOME"/.zshrc
 
 moveFileIfExists "$HOME"/.zshenv
 ln -sv "$INSTALL_DIR"/zsh/zshenv "$HOME"/.zshenv
 
+# TMUX
 moveFileIfExists "$HOME"/.tmux.conf
 ln -sv "$INSTALL_DIR"/tmux/tmux.conf "$HOME"/.tmux.conf
 
 moveFileIfExists "$HOME"/.tmux
 ln -sv "$INSTALL_DIR"/tmux/ "$HOME"/.tmux
 
-moveFileIfExists "$HOME"/.jshintrc
-ln -sv "$INSTALL_DIR"/node/jshintrc "$HOME"/.jshintrc
-
+# TERMITE
 if [[ ! -d "$HOME"/.config/termite ]]
 then
     mkdir -p "$HOME"/.config/termite
