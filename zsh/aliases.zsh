@@ -18,3 +18,5 @@ alias ws="cd ~/workspace"
 alias src="cd ~/Storage/source_builds"
 
 alias make='make -j"$(nproc)"'
+
+alias t='vim ~/Dropbox/todo/todo.txt'

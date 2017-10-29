@@ -87,6 +87,9 @@ Plug 'xuhdev/vim-latex-live-preview'
 " Better Vimscript syntax highlighting
 Plug 'vim-jp/syntax-vim-ex'
 
+"" Todo.txt
+Plug 'freitass/todo.txt-vim'
+
 " All of your Plugins must be added before the following line
 " Initialize plugin system
 call plug#end()
