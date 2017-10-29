@@ -16,6 +16,7 @@ alias shutdown='sudo shutdown -h now'
 
 alias ws="cd ~/workspace"
 alias src="cd ~/Storage/source_builds"
+alias sch="cd ~/School"
 
 alias make='make -j"$(nproc)"'
 
