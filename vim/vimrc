@@ -42,6 +42,8 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " Continuously updated session files
 Plug 'tpope/vim-obsession'
+" Vim script for text filtering and alignment
+Plug 'godlygeek/tabular'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Programming
@@ -52,23 +54,25 @@ Plug 'aperezdc/vim-template'
 Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer --gocode-completer' }
 " Generates config files for YouCompleteMe
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-" Snippets engine and snippes
+" Snippets engine and snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'jamescarr/snipmate-nodejs' | Plug 'sudar/vim-arduino-snippets'
 " A collection of language packs for Vim
 Plug 'sheerun/vim-polyglot'
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
+" Format code with one button press
+Plug 'chiel92/vim-autoformat'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language Specific
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Python
 " Better code folding
-Plug 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 " Work with python virtualenvs
-Plug 'jmcantrell/vim-virtualenv'
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 " Vim plugin to sort python imports using isort
-Plug 'fisadev/vim-isort'
+Plug 'fisadev/vim-isort', { 'for': 'python' }
 
 "" JS/Node
 " Tools and utilities for JS and Node.js
@@ -92,6 +96,11 @@ call plug#end()
 " => Plugin configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" YouCompleteMe
+" Latex completion
+if !exists('g:ycm_semantic_triggers')
+let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 " Shortcut for goto current definition
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -133,6 +142,20 @@ let g:used_javascript_libs = 'jquery'
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
+
+" Autoformat
+noremap <F3> :Autoformat<CR>
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
+
+" Vimtex
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_manual = 1
+let g:vimtex_indent_enabled = 0
+let g:vimtex_indent_on_ampersands = 0
+let g:vimtex_indent_ignored_envs = ['document', 'figure']
+let g:livepreview_engine = 'xelatex'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations
@@ -209,8 +232,9 @@ map <leader>ba :1,1000 bd!<cr>
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Map <leader> to ','
+" Map <leader> & <localleader> to ','
 map , <leader>
+map , <localleader>
 
 " TODO Make netrw more like NERDTree
 " http://ivanbrennan.nyc/blog/2014/01/16/rigging-vims-netrw/
@@ -233,7 +257,9 @@ map <leader>sa zg
 map <leader>s? z=
 
 " Open vimrc
-map <leader>ev :vsp ~/.vimrc<cr>
+map <leader>ev :e ~/.vimrc<cr>
+map <leader>vv :vsp ~/.vimrc<cr>
+map <leader>pv :sp ~/.vimrc<cr>
 " Source vimrc
 map <leader>sv :source ~/.vimrc<cr>
 
@@ -245,6 +271,9 @@ map <F3> :setlocal paste!<cr>
 " then press ``>`` several times.
 noremap < <gv  " better indentation
 noremap > >gv  " better indentation
+
+" Start latex live preview
+map <F5> :LLPStartPreview<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
