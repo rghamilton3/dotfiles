@@ -55,7 +55,7 @@ moveFileIfExists() {
 }
 
 echo "*** Installing config files and directories..."
-for item in ${HOME_INSTALL[@]}; do
+for item in "${HOME_INSTALL[@]}"; do
     moveFileIfExists "$HOME/.$item"
     ln -sv "$INSTALL_DIR/$item" "$HOME/.$item"
 done
