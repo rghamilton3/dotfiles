@@ -37,8 +37,8 @@ moveFileIfExists() {
     fi
 }
 
-moveFileIfExists "$HOME"/.xsessionrc
-ln -sv "$INSTALL_DIR"/xsessionrc "$HOME"/.xsessionrc
+moveFileIfExists "$HOME"/.xprofile
+ln -sv "$INSTALL_DIR"/xprofile "$HOME"/.xprofile
 
 # VIM
 moveFileIfExists "$HOME"/.vimrc
