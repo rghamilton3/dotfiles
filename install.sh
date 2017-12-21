@@ -10,7 +10,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo -H python get-pip.py
 rm get-pip.py
 
-sudo -H pip install virtualenv virtualenvwrapper
+sudo -H pip install virtualenv
 sudo rm -rf ~/get-pip.py ~/.cache/pip
 
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv

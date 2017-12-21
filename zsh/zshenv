@@ -3,8 +3,6 @@ export TERM=screen-256color
 
 export WORKON_HOME=~/.virtualenvs
 export PROJECT_HOME=$HOME/workspace/python     
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
 
 export GOROOT="$HOME/.local/go"
 export PATH="$GOROOT/bin:$PATH"
