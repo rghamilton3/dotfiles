@@ -36,8 +36,7 @@ moveFileIfExists() {
                                 echo "Moved symlink ${1} to ${1}.bak?"
                                 break;;
                             No )
-                                echo "Quitting...";
-                                exit;;
+                                break;;
                         esac
                     done
                     break;;
