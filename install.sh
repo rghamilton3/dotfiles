@@ -57,19 +57,19 @@ moveFileIfExists "$HOME/.xprofile"
 ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
 
 moveFileIfExists "$HOME/.vimrc"
-ln -sv "$INSTALL_DIR/vimrc" "$HOME/.vimrc"
+ln -sv "$INSTALL_DIR/vim/vimrc" "$HOME/.vimrc"
 
 moveFileIfExists "$HOME/.vim"
 ln -sv "$INSTALL_DIR/vim" "$HOME/.vim"
 
 moveFileIfExists "$HOME/.zshrc"
-ln -sv "$INSTALL_DIR/zshrc" "$HOME/.zshrc"
+ln -sv "$INSTALL_DIR/zsh/zshrc" "$HOME/.zshrc"
 
 moveFileIfExists "$HOME/.zshenv"
-ln -sv "$INSTALL_DIR/zshenv" "$HOME/.zshenv"
+ln -sv "$INSTALL_DIR/zsh/zshenv" "$HOME/.zshenv"
 
 moveFileIfExists "$HOME/.tmux.conf"
-ln -sv "$INSTALL_DIR/tmux.conf" "$HOME/.tmux.conf"
+ln -sv "$INSTALL_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 
 moveFileIfExists "$HOME/.tmux"
 ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
