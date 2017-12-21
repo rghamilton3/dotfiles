@@ -4,10 +4,10 @@ INSTALL_DIR="$PWD"
 
 HOME_INSTALL=(xprofile vimrc vim zshrc zshenv tmux.conf tmux)
 
-echo "*** Installing required software from repos...\n"
+echo "*** Installing required software from repos..."
 sudo apt install tmux zsh vim-gtk python{,3}-dev wget git
 
-echo "*** Installing Python requirements...\n"
+echo "*** Installing Python requirements..."
 wget https://bootstrap.pypa.io/get-pip.py
 sudo -H python get-pip.py
 rm get-pip.py
@@ -54,7 +54,7 @@ moveFileIfExists() {
     fi
 }
 
-echo "*** Installing config files and directories...\n"
+echo "*** Installing config files and directories..."
 for item in ${HOME_INSTALL[@]}; do
     moveFileIfExists "$HOME"/.${item}
     ln -sv "$INSTALL_DIR"/${item} "$HOME"/.${item}
