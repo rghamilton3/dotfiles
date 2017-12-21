@@ -17,6 +17,7 @@ installPythonRequiremnts() {
     git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 }
 
+run_ln=true
 moveFileIfExists() {
     if [[ -h "$1" ]]  
     then
@@ -36,6 +37,7 @@ moveFileIfExists() {
                                 echo "Moved symlink ${1} to ${1}.bak?"
                                 break;;
                             No )
+                                run_ln=false
                                 break;;
                         esac
                     done
@@ -83,21 +85,41 @@ echo "*** Installing config files and directories..."
 
 # MISC
 moveFileIfExists "$HOME/.xprofile"
-ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
+else
+    run_ln=true
+fi
 
 # ZSH
 moveFileIfExists "$HOME/.zshrc"
-ln -sv "$INSTALL_DIR/zsh/zshrc" "$HOME/.zshrc"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/zsh/zshrc" "$HOME/.zshrc"
+else
+    run_ln=true
+fi
 
 moveFileIfExists "$HOME/.zshenv"
-ln -sv "$INSTALL_DIR/zsh/zshenv" "$HOME/.zshenv"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/zsh/zshenv" "$HOME/.zshenv"
+else
+    run_ln=true
+fi
 
 # VIM
 moveFileIfExists "$HOME/.vimrc"
-ln -sv "$INSTALL_DIR/vim/vimrc" "$HOME/.vimrc"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/vim/vimrc" "$HOME/.vimrc"
+else
+    run_ln=true
+fi
 
 moveFileIfExists "$HOME/.vim"
-ln -sv "$INSTALL_DIR/vim" "$HOME/.vim"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/vim" "$HOME/.vim"
+else
+    run_ln=true
+fi
 
 if [[ -d "$INSTALL_DIR"/vim/autoload ]]
 then
@@ -105,7 +127,11 @@ then
 else
     mkdir -p "$INSTALL_DIR"/vim/autoload
 fi
-ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$INSTALL_DIR"/vim/autoload/plug.vim
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$INSTALL_DIR"/vim/autoload/plug.vim
+else
+    run_ln=true
+fi
 
 if [[ ! -d "$INSTALL_DIR"/vim/undo ]]
 then
@@ -114,10 +140,18 @@ fi
 
 # TMUX
 moveFileIfExists "$HOME/.tmux.conf"
-ln -sv "$INSTALL_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+else
+    run_ln=true
+fi
 
 moveFileIfExists "$HOME/.tmux"
-ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
+else
+    run_ln=true
+fi
 
 # TERMITE
 if [[ ! -d "$HOME"/.config/termite ]]
@@ -126,4 +160,8 @@ then
 else
     moveFileIfExists "$HOME"/.config/termite/config
 fi
-ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
+else
+    run_ln=true
+fi
