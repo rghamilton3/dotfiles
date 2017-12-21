@@ -16,7 +16,7 @@ sudo -H pip install virtualenv virtualenvwrapper
 sudo rm -rf ~/get-pip.py ~/.cache/pip
 
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 
 
 moveFileIfExists() {
@@ -56,8 +56,8 @@ moveFileIfExists() {
 
 echo "*** Installing config files and directories..."
 for item in ${HOME_INSTALL[@]}; do
-    moveFileIfExists "$HOME"/.${item}
-    ln -sv "$INSTALL_DIR"/${item} "$HOME"/.${item}
+    moveFileIfExists "$HOME/.$item"
+    ln -sv "$INSTALL_DIR/$item" "$HOME/.$item"
 done
 
 # VIM
