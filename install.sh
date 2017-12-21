@@ -2,8 +2,6 @@
 
 INSTALL_DIR="$PWD"
 
-HOME_INSTALL=(xprofile vimrc vim zshrc zshenv tmux.conf tmux)
-
 echo "*** Installing required software from repos..."
 sudo apt install tmux zsh vim-gtk python{,3}-dev wget git
 
@@ -55,10 +53,26 @@ moveFileIfExists() {
 }
 
 echo "*** Installing config files and directories..."
-for item in "${HOME_INSTALL[@]}"; do
-    moveFileIfExists "$HOME/.$item"
-    ln -sv "$INSTALL_DIR/$item" "$HOME/.$item"
-done
+moveFileIfExists "$HOME/.xprofile"
+ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
+
+moveFileIfExists "$HOME/.vimrc"
+ln -sv "$INSTALL_DIR/vimrc" "$HOME/.vimrc"
+
+moveFileIfExists "$HOME/.vim"
+ln -sv "$INSTALL_DIR/vim" "$HOME/.vim"
+
+moveFileIfExists "$HOME/.zshrc"
+ln -sv "$INSTALL_DIR/zshrc" "$HOME/.zshrc"
+
+moveFileIfExists "$HOME/.zshenv"
+ln -sv "$INSTALL_DIR/zshenv" "$HOME/.zshenv"
+
+moveFileIfExists "$HOME/.tmux.conf"
+ln -sv "$INSTALL_DIR/tmux.conf" "$HOME/.tmux.conf"
+
+moveFileIfExists "$HOME/.tmux"
+ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
 
 # VIM
 if [[ -d "$INSTALL_DIR"/vim/autoload ]]
