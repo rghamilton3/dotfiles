@@ -106,6 +106,17 @@ else
     run_ln=true
 fi
 
+if [[ ! -d "$HOME"/.zsh/completions ]]
+then
+    mkdir -p "$HOME"/.zsh/completions
+fi
+moveFileIfExists "$HOME"/.zsh/completions/_hub
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/zsh/hub.zsh_completion" "$HOME/.zsh/completions/_hub"
+else
+    run_ln=true
+fi
+
 # VIM
 moveFileIfExists "$HOME/.vimrc"
 if [ "$run_ln" = true ]; then
@@ -121,21 +132,21 @@ else
     run_ln=true
 fi
 
-if [[ -d "$INSTALL_DIR"/vim/autoload ]]
+if [[ -d "$HOME"/vim/autoload ]]
 then
-    moveFileIfExists "$INSTALL_DIR"/vim/autoload/plug.vim
+    moveFileIfExists "$HOME"/vim/autoload/plug.vim
 else
-    mkdir -p "$INSTALL_DIR"/vim/autoload
+    mkdir -p "$HOME"/vim/autoload
 fi
 if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$INSTALL_DIR"/vim/autoload/plug.vim
+    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/vim/autoload/plug.vim
 else
     run_ln=true
 fi
 
-if [[ ! -d "$INSTALL_DIR"/vim/undo ]]
+if [[ ! -d "$HOME"/vim/undo ]]
 then
-    mkdir -p "$INSTALL_DIR"/vim/undo
+    mkdir -p "$HOME"/vim/undo
 fi
 
 # TMUX
