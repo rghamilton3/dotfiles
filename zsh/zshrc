@@ -16,6 +16,7 @@ fi
 for f in ~/.dotfiles/zsh/*.zsh; do source $f; done
 
 # Auto complete
+fpath=(~/.zsh/completions $fpath) 
 autoload -Uz compinit promptinit colors
 compinit -d ${HOME}/.zcompdump
 promptinit

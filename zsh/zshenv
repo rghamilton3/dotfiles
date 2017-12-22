@@ -1,6 +1,8 @@
 export EDITOR=vim
 export TERM=screen-256color
 
+eval "$(hub alias -s)"
+
 export WORKON_HOME=~/.virtualenvs
 export PROJECT_HOME=$HOME/workspace/python     
 
