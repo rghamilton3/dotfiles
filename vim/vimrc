@@ -75,6 +75,7 @@ Plug 'ain/vim-docker'
 " => Language Specific
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Python
+Plug 'python-mode/python-mode', { 'do': 'git submodule update --init --recursive' }
 " Better code folding
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 " Work with python virtualenvs
@@ -199,6 +200,9 @@ function! s:compile_and_run()
        exec "AsyncRun! time python %"
     endif
 endfunction
+
+"" Python-mode
+let g:pymode_python = 'python3'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations
