@@ -36,6 +36,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 " Quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
+" Insert or delete brackets, parens, quotes in pair
+Plug 'jiangmiao/auto-pairs'
 " Intelligently reopen files at your last edit position
 Plug 'farmergreg/vim-lastplace'
 " Status/tabline
