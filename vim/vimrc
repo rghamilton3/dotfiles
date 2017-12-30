@@ -243,7 +243,7 @@ set encoding=utf8
 set wildignore=*.pyc,*.o,*.so,*.a
 
 " Ignore pyc files when expanding wildcards
-let g:netrw_list_hide= '.*\.pyc$'
+let g:netrw_list_hide= ['.*\.pyc$', '\~', '.*\.o$', '.*\.so$', '.*\.a$']
 
 " Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
