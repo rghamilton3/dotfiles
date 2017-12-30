@@ -44,8 +44,10 @@ Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-obsession'
 " Vim script for text filtering and alignment
 Plug 'godlygeek/tabular'
-" Run Async Shell Commands
+" Run async shell commands
 Plug 'skywind3000/asyncrun.vim'
+" Allows toggling bookmarks per line
+Plug 'MattesGroeger/vim-bookmarks'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Programming
