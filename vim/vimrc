@@ -19,7 +19,7 @@ Plug 'tpope/vim-fugitive' | Plug 'int3/vim-extradite'
 " Displaying indent levels in code
 Plug 'nathanaelkane/vim-indent-guides'
 " Fuzzy file, buffer, mru, tag, etc finder
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Displays tags in a window
 Plug 'majutsushi/tagbar'
 " Multiple selection feature
