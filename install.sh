@@ -19,7 +19,7 @@ installPythonRequiremnts() {
 
 run_ln=true
 moveFileIfExists() {
-    if [[ -h "$1" ]]  
+    if [[ -h "$1" ]]
     then
         echo "Remove symlink ${1}?"
         select ans in "Yes" "No" "Quit"; do
@@ -32,8 +32,8 @@ moveFileIfExists() {
                     echo "Move symlink ${1}?"
                     select moveAns in "Yes" "No"; do
                         case $moveAns in
-                            Yes ) 
-                                mv "$1" "$1".bak; 
+                            Yes )
+                                mv "$1" "$1".bak;
                                 echo "Moved symlink ${1} to ${1}.bak?"
                                 break;;
                             No )
@@ -47,7 +47,7 @@ moveFileIfExists() {
                     exit;;
             esac
         done
-    elif [[ -d "$1" ]] || [[ -e "$1" ]] 
+    elif [[ -d "$1" ]] || [[ -e "$1" ]]
     then
         mv "$1" "$1".bak
     fi
@@ -91,6 +91,13 @@ else
     run_ln=true
 fi
 
+moveFileIfExists "$HOME/.clang-format"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/clang-format" "$HOME/.clang-format"
+else
+    run_ln=true
+fi
+
 # ZSH
 moveFileIfExists "$HOME/.zshrc"
 if [ "$run_ln" = true ]; then
@@ -121,6 +128,13 @@ fi
 moveFileIfExists "$HOME/.vimrc"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/vim/vimrc" "$HOME/.vimrc"
+else
+    run_ln=true
+fi
+
+moveFileIfExists "$HOME/.vintrc.yaml"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/vim/vintrc.yaml" "$HOME/.vintrc.yaml"
 else
     run_ln=true
 fi
