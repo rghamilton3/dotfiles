@@ -16,7 +16,7 @@ fi
 for f in ~/.dotfiles/zsh/*.zsh; do source $f; done
 
 # Auto complete
-fpath=(~/.zsh/completions $fpath) 
+fpath=(~/.zsh/completions $fpath)
 autoload -Uz compinit promptinit colors
 compinit -d ${HOME}/.zcompdump
 promptinit
@@ -28,7 +28,7 @@ zstyle ':completion:*' menu select
 # Auto complete aliases
 setopt COMPLETE_ALIASES
 
-# Auto correct commands 
+# Auto correct commands
 setopt correct_all
 
 # No duplicates in history
@@ -65,6 +65,7 @@ if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)"
 fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Tell antigen that you're done.
 antigen apply
