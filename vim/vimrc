@@ -131,26 +131,28 @@ function ExpandSnippetOrCarriageReturn()
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
-" Artistic style
+"" Artistic style
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle
 autocmd BufNewFile,BufRead *.hpp set formatprg=astyle
 autocmd BufNewFile,BufRead *.c set formatprg=astyle
 autocmd BufNewFile,BufRead *.h set formatprg=astyle
 
-" Airline
+"" Airline
 let g:airline_theme = 'zenburn'
 let g:airline_powerline_fonts = 1
 
+"" Multicursor
 " Map start key separately from next key
 let g:multi_cursor_start_key='<F6>'
 
-" JavaScript libraries in use
+"" Javascript
+" Javascript libraries in use
 let g:used_javascript_libs = 'jquery'
 
-" Tagbar
+"" Tagbar
 nmap <F8> :TagbarToggle<CR>
 
-" Autoformat
+"" Autoformat
 noremap <F3> :Autoformat<CR>
 " Format on save
 au BufWrite * :Autoformat
@@ -161,7 +163,7 @@ let g:autoformat_autoindent = 0
 " let g:autoformat_remove_trailing_spaces = 0
 let g:formatters_python = ['yapf']
 
-" Vimtex
+"" Vimtex
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_manual = 1
 let g:vimtex_indent_enabled = 0
