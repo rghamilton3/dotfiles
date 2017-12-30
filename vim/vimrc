@@ -201,8 +201,15 @@ function! s:compile_and_run()
     endif
 endfunction
 
-"" Pytho-mode
+"" Python-mode
 let g:pymode_python = 'python3'
+
+"" FZF
+imap <c-x><c-o> <plug>(fzf-complete-line)
+map <leader>b :Buffers<cr>
+map <leader>f :Files<cr>
+map <leader>g :GFiles<cr>
+map <leader>t :Tags<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations

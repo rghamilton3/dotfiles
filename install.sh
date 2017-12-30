@@ -98,6 +98,13 @@ else
     run_ln=true
 fi
 
+moveFileIfExists "$HOME/.ctags"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/ctags" "$HOME/.ctags"
+else
+    run_ln=true
+fi
+
 # ZSH
 moveFileIfExists "$HOME/.zshrc"
 if [ "$run_ln" = true ]; then
