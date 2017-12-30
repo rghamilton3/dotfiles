@@ -341,6 +341,9 @@ noremap > >gv  " better indentation
 " Start latex live preview
 map <F5> :LLPStartPreview<cr>
 
+" Enable folding with the spacebar
+nnoremap <space> za
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
