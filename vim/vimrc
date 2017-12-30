@@ -201,7 +201,7 @@ function! s:compile_and_run()
     endif
 endfunction
 
-"" Python-mode
+"" Pytho-mode
 let g:pymode_python = 'python3'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -223,8 +223,14 @@ set wildmode=longest,list,full
 " Show completion options
 set wildmenu
 
-" Set utf8 as standard encoding and en_US as the standard language
+" Set utf8 as standard encoding
 set encoding=utf8
+
+" Files to ignore when expanding wildcard
+set wildignore=*.pyc,*.o,*.so,*.a
+
+" Ignore pyc files when expanding wildcards
+let g:netrw_list_hide= '.*\.pyc$'
 
 " Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
