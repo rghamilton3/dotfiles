@@ -55,13 +55,12 @@ echo "Install required software from repos?";
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
-            sudo pacman -S --needed  tmux zsh vim curl wget git;
-	    git clone https://aur.archlinux.org/pacaur
-	    cd pacaur
-	    makepkg -si --needed
-	    cd ..
-	    rm -rf pacaur
-        pacaur -S git-hub
+            sudo pacman -S --needed  tmux zsh vim curl wget git hub cmake;
+            git clone https://aur.archlinux.org/pacaur;
+            cd pacaur;
+            makepkg -si --needed;
+            cd ..;
+            rm -rf pacaur;
             break;;
         No )
             break;;
