@@ -16,6 +16,76 @@ fi
 for f in ~/.dotfiles/zsh/*.zsh; do source $f; done
 
 # Auto complete
+fpath=(~/.zsh/completions $fpath)
+autoload -Uz compinit promptinit colors
+compinit -d ${HOME}/.zcompdump
+promptinit
+colors
+
+# Arrow-key driven interface
+zstyle ':completion:*' menu select
+
+# Auto complete aliases
+setopt COMPLETE_ALIASES
+
+# Auto correct commands
+setopt correct_all
+
+# No duplicates in history
+setopt HIST_IGNORE_DUPS
+
+# History search
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+# Deer (Ranger like file navigator)
+autoload -U deer
+zle -N deer
+bindkey '\ek' deer
+
+[[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   up-line-or-beginning-search
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-beginning-search
+
+# Help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svn
+autoload -Uz run-help-svk
+alias help=run-help
+
+# Persistent rehash
+zstyle ':completion:*' rehash true
+
+# Start ssh-agent if not already running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval "$(<~/.ssh-agent-thing)"
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Tell antigen that you're done.
+antigen apply# If tmux not running then start it
+if [ "$TMUX" = "" ]; then tmux -f ~/.tmux.conf; fi
+
+# Source antigen and it's config
+# If there is cache available, use it
+if [[ -f ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload ]]; then
+    # Load bundles statically
+    source ${ADOTDIR:-$HOME/.antigen}/.cache/.zcache-payload
+else
+    # If there is no cache available do load and execute antigen
+    source ~/.dotfiles/zsh/antigen/antigen.zsh
+    antigen init ~/.dotfiles/zsh/antigenrc
+fi
+
+# Source .zsh files
+for f in ~/.dotfiles/zsh/*.zsh; do source $f; done
+
+# Auto complete
 autoload -Uz compinit promptinit colors
 compinit -d ${HOME}/.zcompdump
 promptinit

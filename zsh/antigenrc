@@ -7,11 +7,13 @@ antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
     # Oh-My-Zsh
-    archlinux
+    #
     autojump # A cd command that learns 
     colorize # Plugin for highlighting file content
     command-not-found
     common-aliases
+    docker
+    docker-compose
     pip
     python
     systemd
@@ -26,10 +28,12 @@ antigen bundles <<EOBUNDLES
     voronkovich/gitignore.plugin.zsh
 
     # Misc
+    Tarrasch/zsh-autoenv
     chrissicool/zsh-256color
     djui/alias-tips
     fabiokiatkowski/exercism.plugin.zsh
     hlissner/zsh-autopair
+    Vifon/deer
     zdharma/fast-syntax-highlighting
     zdharma/history-search-multi-word
     zuxfoucault/colored-man-pages_mod
