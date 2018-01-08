@@ -1,0 +1,8 @@
+---
+Language:        Cpp
+BasedOnStyle:  Google
+BreakBeforeBraces: Allman
+---
+Language: Proto
+# Don't format .proto files.
+DisableFormat: true
