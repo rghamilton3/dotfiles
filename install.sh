@@ -1,7 +1,23 @@
+#! /bin/bash
+
 INSTALL_DIR="$PWD"
 
+installPythonRequiremnts() {
+    echo "*** Installing pip..."
+    pacaur -S --needed python{2,}-{setuptools,pip}
+
+    echo "*** Installing virtualenv..."
+    sudo -H pip install virtualenv
+    sudo rm -rf ~/get-pip.py ~/.cache/pip
+
+    echo "*** Installing pyenv..."
+    pacaur -S --needed pyenv
+    git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+}
+
+run_ln=true
 moveFileIfExists() {
-    if [[ -h "$1" ]]  
+    if [[ -h "$1" ]]
     then
         echo "Remove symlink ${1}?"
         select ans in "Yes" "No" "Quit"; do
@@ -14,13 +30,13 @@ moveFileIfExists() {
                     echo "Move symlink ${1}?"
                     select moveAns in "Yes" "No"; do
                         case $moveAns in
-                            Yes ) 
-                                mv "$1" "$1".bak; 
+                            Yes )
+                                mv "$1" "$1".bak;
                                 echo "Moved symlink ${1} to ${1}.bak?"
                                 break;;
                             No )
-                                echo "Quitting...";
-                                exit;;
+                                run_ln=false
+                                break;;
                         esac
                     done
                     break;;
@@ -29,88 +45,159 @@ moveFileIfExists() {
                     exit;;
             esac
         done
-    elif [[ -d "$1" ]] || [[ -e "$1" ]] 
+    elif [[ -d "$1" ]] || [[ -e "$1" ]]
     then
         mv "$1" "$1".bak
     fi
 }
 
-moveFileIfExists "$HOME"/.vimrc
-ln -sv "$INSTALL_DIR"/vim/vimrc "$HOME"/.vimrc
+echo "Install required software from repos?";
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            sudo pacman -S --needed  tmux zsh vim curl wget git;
+	    git clone https://aur.archlinux.org/pacaur
+	    cd pacaur
+	    makepkg -si --needed
+	    cd ..
+	    rm -rf pacaur
+        pacaur -S git-hub
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
 
-moveFileIfExists "$HOME"/.gvimrc
-ln -sv "$INSTALL_DIR"/vim/gvimrc "$HOME"/.gvimrc
+echo "Install Python requirements?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            installPythonRequiremnts
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
 
-moveFileIfExists "$HOME"/.vim
-ln -sv "$INSTALL_DIR"/vim/ "$HOME"/.vim
+echo "*** Installing config files and directories..."
 
-if [[ -d "$INSTALL_DIR"/vim/autoload ]]
-then
-    moveFileIfExists "$INSTALL_DIR"/vim/autoload/plug.vim
+# MISC
+moveFileIfExists "$HOME/.xprofile"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
 else
-    mkdir -p "$INSTALL_DIR"/vim/autoload
+    run_ln=true
 fi
-ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$INSTALL_DIR"/vim/autoload/plug.vim
 
-if [[ ! -d "$INSTALL_DIR"/vim/undo ]]
+moveFileIfExists "$HOME/.clang-format"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/clang-format" "$HOME/.clang-format"
+else
+    run_ln=true
+fi
+
+moveFileIfExists "$HOME/.ctags"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/ctags" "$HOME/.ctags"
+else
+    run_ln=true
+fi
+
+# ZSH
+moveFileIfExists "$HOME/.zshrc"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/zsh/zshrc" "$HOME/.zshrc"
+else
+    run_ln=true
+fi
+
+moveFileIfExists "$HOME/.zshenv"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/zsh/zshenv" "$HOME/.zshenv"
+else
+    run_ln=true
+fi
+
+if [[ ! -d "$HOME"/.zsh/completions ]]
 then
-    mkdir -p "$INSTALL_DIR"/vim/undo
+    mkdir -p "$HOME"/.zsh/completions
+fi
+moveFileIfExists "$HOME"/.zsh/completions/_hub
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/zsh/hub.zsh_completion" "$HOME/.zsh/completions/_hub"
+else
+    run_ln=true
 fi
 
-moveFileIfExists "$HOME"/.zshrc
-ln -sv "$INSTALL_DIR"/zsh/zshrc "$HOME"/.zshrc
+# VIM
+moveFileIfExists "$HOME/.vimrc"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/vim/vimrc" "$HOME/.vimrc"
+else
+    run_ln=true
+fi
 
-moveFileIfExists "$HOME"/.zshenv
-ln -sv "$INSTALL_DIR"/zsh/zshenv "$HOME"/.zshenv
+moveFileIfExists "$HOME/.vintrc.yaml"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/vim/vintrc.yaml" "$HOME/.vintrc.yaml"
+else
+    run_ln=true
+fi
 
-moveFileIfExists "$HOME"/.tmux.conf
-ln -sv "$INSTALL_DIR"/tmux/tmux.conf "$HOME"/.tmux.conf
+moveFileIfExists "$HOME/.vim"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/vim" "$HOME/.vim"
+else
+    run_ln=true
+fi
 
-moveFileIfExists "$HOME"/.tmux
-ln -sv "$INSTALL_DIR"/tmux/ "$HOME"/.tmux
+if [[ -d "$HOME"/vim/autoload ]]
+then
+    moveFileIfExists "$HOME"/vim/autoload/plug.vim
+else
+    mkdir -p "$HOME"/vim/autoload
+fi
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/vim/autoload/plug.vim
+else
+    run_ln=true
+fi
 
-moveFileIfExists "$HOME"/.jshintrc
-ln -sv "$INSTALL_DIR"/node/jshintrc "$HOME"/.jshintrc
+if [[ ! -d "$HOME"/vim/undo ]]
+then
+    mkdir -p "$HOME"/vim/undo
+fi
 
+# TMUX
+moveFileIfExists "$HOME/.tmux.conf"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+else
+    run_ln=true
+fi
 
+moveFileIfExists "$HOME/.tmux"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
+else
+    run_ln=true
+fi
+
+# TERMITE
 if [[ ! -d "$HOME"/.config/termite ]]
 then
     mkdir -p "$HOME"/.config/termite
 else
     moveFileIfExists "$HOME"/.config/termite/config
 fi
-ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
-
-if [[ ! -d "$HOME"/.config/mpd ]]
-then
-    mkdir -p "$HOME"/.config/mpd
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
 else
-    moveFileIfExists "$HOME"/.config/mpd/mpd.conf
+    run_ln=true
 fi
-ln -sv "$INSTALL_DIR"/mpd.conf "$HOME"/.config/mpd/mpd.conf
-
-if [[ ! -d "$HOME"/.ncmpcpp ]]
-then
-    mkdir -p "$HOME"/.ncmpcpp
-else
-    moveFileIfExists "$HOME"/.ncmpcpp/config
-    moveFileIfExists "$HOME"/.ncmpcpp/bindings
-fi
-ln -sv "$INSTALL_DIR"/ncmpcpp/config "$HOME"/.ncmpcpp/config
-ln -sv "$INSTALL_DIR"/ncmpcpp/bindings "$HOME"/.ncmpcpp/bindings
-
-if [[ -f /etc/powerpill/powerpill.json ]]
-then
-    echo "Replace Powerpill.json?"
-    select ans in "Yes" "No" "Quit"; do
-        case $ans in
-            Yes )
-                sudo mv /etc/powerpill/powerpill.json /etc/powerpill/powerpill.json.bak
-                break;;
-            No )
-                echo "Quitting...";
-                exit;;
-        esac
-    done
-fi
-sudo ln -sv "$INSTALL_DIR"/powerpill.json /etc/powerpill/powerpill.json
