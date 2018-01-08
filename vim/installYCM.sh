@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 # installYCM.sh
-# Copyright (C) 2017 rghamilton3 <rghamilton3@ArchTop>
+# Copyright (C) 2017 rghamilton3 <rghamilton3@gmail.com>
 #
 # > /dev/null redirects unneeded output from stdout
 # to nowhere
@@ -9,16 +9,16 @@
 YCM_DIR="$HOME"/.vim/plugged/YouCompleteMe
 BUILD_DIR="$YCM_DIR"/build
 
-CLANG_VER=4.0.0
+CLANG_VER=5.0.1
 CLANG_FILE=clang+llvm-"$CLANG_VER"-x86_64-linux-gnu-ubuntu-14.04
 CLANG_URL=http://releases.llvm.org/"$CLANG_VER"/"$CLANG_FILE".tar.xz
 
 installPkg() {
-    # Use Yaourt if installed
+    # Use pacaur if installed
     # No need to use sudo if so
     if pacman -Qi yaourt > /dev/null
     then
-        INSTALLER=yaourt
+        INSTALLER=pacaur
     else
         INSTALLER="sudo pacman"
     fi
