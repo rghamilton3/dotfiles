@@ -8,8 +8,10 @@ export TERM=screen-256color
 
 eval "$(hub alias -s)"
 
+export GOPATH="$HOME"/workspace/go
+
 export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME="$HOME"/workspace/python     
+export PROJECT_HOME="$HOME"/workspace/python
 
 export PYENV_ROOT="$HOME"/.pyenv
 export PATH="$PYENV_ROOT"/bin:"$PATH"
