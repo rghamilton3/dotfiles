@@ -1,6 +1,6 @@
 alias curl='curl -OL#'
 alias ping3='ping -c 3'
-alias cp='cp -iv'
+alias cp='cp -iv --reflink'
 alias mv='mv -iv'
 alias rm='rm -iv'
 alias rmdir='rmdir -v'
