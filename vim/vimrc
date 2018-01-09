@@ -106,6 +106,9 @@ Plug 'vim-jp/syntax-vim-ex'
 "" Todo.txt
 Plug 'freitass/todo.txt-vim'
 
+"" Systemd
+Plug 'Matt-Deacalion/vim-systemd-syntax'
+
 " All of your Plugins must be added before the following line
 " Initialize plugin system
 call plug#end()
