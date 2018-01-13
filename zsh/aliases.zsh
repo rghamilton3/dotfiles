@@ -10,7 +10,7 @@ alias chown="chown -c"
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias ls='ls --color=auto --human-readable --group-directories-first --classify'
-alias update='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'
+alias update='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt-get autoremove'
 alias reboot='sudo reboot'
 alias shutdown='sudo shutdown -h now'
 
