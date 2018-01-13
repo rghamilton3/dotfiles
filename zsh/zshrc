@@ -1,5 +1,9 @@
 # If tmux not running then start it
-if [ "$TMUX" = "" ]; then tmux -f ~/.tmux.conf; fi
+if [ "$TMUX" = "" ]; then
+    tmux -f ~/.tmux.conf new -s main
+else
+    tmux a -t main
+fi
 
 # Source antigen and it's config
 # If there is cache available, use it
