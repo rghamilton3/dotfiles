@@ -19,23 +19,26 @@ antigen bundles <<EOBUNDLES
     tmux
     virtualenv
 
+
     # Git related
     git
     peterhurford/git-aliases.zsh
-    petervanderdoes/git-flow-completion
     unixorn/git-extra-commands
+    petervanderdoes/git-flow-completion
     voronkovich/gitignore.plugin.zsh
 
     # Misc
-    Tarrasch/zsh-autoenv
-    chrissicool/zsh-256color
     djui/alias-tips
-    fabiokiatkowski/exercism.plugin.zsh
-    hlissner/zsh-autopair
+    zuxfoucault/colored-man-pages_mod
     Vifon/deer
+    fabiokiatkowski/exercism.plugin.zsh
     zdharma/fast-syntax-highlighting
     zdharma/history-search-multi-word
-    zuxfoucault/colored-man-pages_mod
+    chrissicool/zsh-256color
+    Tarrasch/zsh-autoenv
+    hlissner/zsh-autopair
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-completions
 EOBUNDLES
 
 # Load the theme.
