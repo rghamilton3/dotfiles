@@ -97,7 +97,7 @@ zstyle ':completion:*' menu select
 # Auto complete aliases
 setopt COMPLETE_ALIASES
 
-# Auto correct commands 
+# Auto correct commands
 setopt correct_all
 
 # No duplicates in history
@@ -120,6 +120,9 @@ alias help=run-help
 
 # Persistent rehash
 zstyle ':completion:*' rehash true
+
+EXPERT_ID=$(xinput list | grep -i "kensington expert" | head -n 1 | sed -r 's/.*id=([0-9]+).*/\1/')
+xinput --set-button-map $EXPERT_ID 1 8 3 4 5 3 3 9 3
 
 # Tell antigen that you're done.
 antigen apply

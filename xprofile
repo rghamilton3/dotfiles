@@ -1,2 +1,0 @@
-EXPERT_ID=$(xinput list | grep -i "kensington expert" | head -n 1 | sed -r 's/.*id=([0-9]+).*/\1/')
-xinput --set-button-map $EXPERT_ID 1 8 3 4 5 3 3 9 3
