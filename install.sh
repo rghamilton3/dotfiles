@@ -2,6 +2,24 @@
 
 INSTALL_DIR="$PWD"
 
+installTermite() {
+    sudo apt install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool libpcre2-dev libglib3.0-cil-dev libgnutls28-dev libgirepository1.0-dev libxml2-utils gperf build-essential
+    
+    mkdir -p $HOME/source_builds
+    cd $HOME/source_builds
+    git clone https://github.com/thestinger/vte-ng.git
+    echo export LIBRARY_PATH="/usr/include/gtk-3.0:$LIBRARY_PATH"
+    cd vte-ng && ./autogen.sh && make && sudo make install 
+    cd ..
+
+    git clone --recursive https://github.com/thestinger/termite.git
+    cd termite && make && sudo make install
+    sudo ldconfig
+    sudo mkdir -p /lib/terminfo/x
+    sudo ln -s /usr/local/share/terminfo/x/xterm-termite /lib/terminfo/x/xterm-termite
+    cd $INSTALL_DIR
+}
+
 installPythonRequiremnts() {
     echo "*** Installing pip..."
     wget https://bootstrap.pypa.io/get-pip.py
@@ -15,6 +33,11 @@ installPythonRequiremnts() {
     echo "*** Installing pyenv..."
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+
+    echo "*** Installing pyenv build requirements..."
+    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+        libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+        xz-utils tk-dev
 }
 
 run_ln=true
@@ -72,6 +95,20 @@ select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
             installPythonRequiremnts
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
+
+echo "Install Termite?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            installTermite
             break;;
         No )
             break;;
