@@ -25,7 +25,7 @@ Plug 'majutsushi/tagbar'
 " Multiple selection feature
 Plug 'terryma/vim-multiple-cursors'
 " Maintains a history of previous yanks, changes and deletes
-Plug 'vim-scripts/YankRing.vim'
+"Plug 'vim-scripts/YankRing.vim'
 " Preview colours in source code while editing
 Plug 'ap/vim-css-color'
 " Edit Files using sudo or su or any other tool
@@ -101,6 +101,9 @@ Plug 'vim-jp/syntax-vim-ex'
 "" Todo.txt
 Plug 'freitass/todo.txt-vim'
 
+"" ROS
+Plug 'taketwo/vim-ros'
+
 " All of your Plugins must be added before the following line
 " Initialize plugin system
 call plug#end()
@@ -171,6 +174,7 @@ let g:autoformat_autoindent = 0
 let g:formatters_python = ['yapf']
 
 "" Vimtex
+let g:polyglot_disabled = ['latex']
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_manual = 1
 let g:vimtex_indent_enabled = 0

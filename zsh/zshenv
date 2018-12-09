@@ -1,10 +1,13 @@
 export EDITOR=vim
 export TERM=screen-256color
 
-eval "$(hub alias -s)"
+#eval "$(hub alias -s)"
 
-export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME=$HOME/workspace/python     
+export WORKON_HOME=~/workspace/.virtualenvs
+export PROJECT_HOME=$HOME/workspace
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+#export VIRTUALENVWRAPPER_VIRTUALENV=/usr/
+source /usr/local/bin/virtualenvwrapper.sh
 
 export GOROOT="$HOME/.local/go"
 export PATH="$GOROOT/bin:$PATH"
@@ -17,4 +20,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 eval "$(pyenv virtualenv-init -)"
 
-source /opt/ros/kinetic/setup.zsh
+#source /opt/ros/kinetic/setup.zsh
+
+export PATH=$PATH:/usr/local/tara-sdk/bin
