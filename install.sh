@@ -1,24 +1,6 @@
-#! /bin/bash
+#! /bin/bash -x
 
 INSTALL_DIR="$PWD"
-
-installTermite() {
-    sudo apt install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool libpcre2-dev libglib3.0-cil-dev libgnutls28-dev libgirepository1.0-dev libxml2-utils gperf build-essential
-    
-    mkdir -p $HOME/source_builds
-    cd $HOME/source_builds
-    git clone https://github.com/thestinger/vte-ng.git
-    echo export LIBRARY_PATH="/usr/include/gtk-3.0:$LIBRARY_PATH"
-    cd vte-ng && ./autogen.sh && make && sudo make install 
-    cd ..
-
-    git clone --recursive https://github.com/thestinger/termite.git
-    cd termite && make && sudo make install
-    sudo ldconfig
-    sudo mkdir -p /lib/terminfo/x
-    sudo ln -s /usr/local/share/terminfo/x/xterm-termite /lib/terminfo/x/xterm-termite
-    cd $INSTALL_DIR
-}
 
 installPythonRequiremnts() {
     echo "*** Installing pip..."
@@ -35,9 +17,17 @@ installPythonRequiremnts() {
     git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 
     echo "*** Installing pyenv build requirements..."
-    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-        libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-        xz-utils tk-dev
+    sudo dnf install gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel
+}
+
+installHub() {
+	echo "*** Downloading hub..."
+	wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz
+
+	echo "*** Installing hub..."
+	tar xf hub-linux-amd64-2.12.3.tgz -C ~/.local/bin
+
+	rm hub-linux-amd64-2.12.3.tgz
 }
 
 run_ln=true
@@ -80,7 +70,7 @@ echo "Install required software from repos?";
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
-            sudo apt install tmux zsh vim-gtk python{,3}-dev wget git;
+            sudo dnf install -y tmux zsh vim-X11 python{,3}-devel wget git autojump autojump-zsh cmake gcc-c++ make;
             break;;
         No )
             break;;
@@ -104,11 +94,25 @@ select ans in "Yes" "No" "Quit"; do
     esac
 done
 
-echo "Install Termite?"
+echo "Install hub?"
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
-            installTermite
+            installHub
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
+
+echo "Set ZSH as default shell?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            chsh -s $(which zsh)
             break;;
         No )
             break;;
@@ -121,13 +125,6 @@ done
 echo "*** Installing config files and directories..."
 
 # MISC
-moveFileIfExists "$HOME/.xprofile"
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
-else
-    run_ln=true
-fi
-
 moveFileIfExists "$HOME/.clang-format"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/clang-format" "$HOME/.clang-format"
@@ -218,19 +215,6 @@ fi
 moveFileIfExists "$HOME/.tmux"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
-else
-    run_ln=true
-fi
-
-# TERMITE
-if [[ ! -d "$HOME"/.config/termite ]]
-then
-    mkdir -p "$HOME"/.config/termite
-else
-    moveFileIfExists "$HOME"/.config/termite/config
-fi
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
 else
     run_ln=true
 fi

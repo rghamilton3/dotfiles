@@ -57,7 +57,7 @@ Plug 'MattesGroeger/vim-bookmarks'
 " Simple templates
 Plug 'aperezdc/vim-template'
 " A code-completion engine
-Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer --go-completer --rust-completer' }
+Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 " Generates config files for YouCompleteMe
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 " Snippets engine and snippets
