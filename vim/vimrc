@@ -55,6 +55,10 @@ Plug 'godlygeek/tabular'
 Plug 'skywind3000/asyncrun.vim'
 " Allows toggling bookmarks per line
 Plug 'MattesGroeger/vim-bookmarks'
+" Creates increasing and decreasing number or letter sequences on multiple lines via visual mode
+Plug 'triglav/vim-visual-increment'
+" A code-searching tool
+Plug 'mileszs/ack.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Programming
@@ -81,14 +85,17 @@ Plug 'ain/vim-docker'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language Specific
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" C/C++"
+Plug 'WolfgangMehner/c-support'
+
 "" Python
-Plug 'python-mode/python-mode', { 'do': 'git submodule update --init --recursive' }
+Plug 'python-mode/python-mode', { 'branch': 'develop' }
 " Better code folding
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 " Work with python virtualenvs
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 " Vim plugin to sort python imports using isort
-Plug 'fisadev/vim-isort', { 'for': 'python' }
+"Plug 'fisadev/vim-isort', { 'for': 'python' }
 
 "" JS/Node
 " Tools and utilities for JS and Node.js
@@ -128,7 +135,7 @@ let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 " Shortcut for goto current definition
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
@@ -172,7 +179,7 @@ nmap <F8> :TagbarToggle<CR>
 "" Autoformat
 noremap <F3> :Autoformat<CR>
 " Format on save
-au BufWrite * :Autoformat
+"au BufWrite * :Autoformat
 " Disable fallback to vim's indent file for certain files
 autocmd FileType vim,tex let b:autoformat_autoindent=0
 let g:autoformat_autoindent = 0
@@ -214,7 +221,7 @@ function! s:compile_and_run()
 endfunction
 
 "" Python-mode
-let g:pymode_python = 'python3'
+"let g:pymode_python = 'python3'
 
 "" FZF
 imap <c-x><c-o> <plug>(fzf-complete-line)
@@ -223,9 +230,21 @@ map <leader>f :Files<cr>
 map <leader>g :GFiles<cr>
 map <leader>t :Tags<cr>
 
+"" Vim Templates
+let g:templates_directory = ['~/workspace/cfs-vim-templates']
+let g:email = 'robert.g.hamilton@nasa.gov'
+let g:username = 'Robert Hamilton'
+
+"" Ack
+" Use Ag if available
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set bs=2
 set laststatus=2
 set showtabline=2
 set tabstop=4

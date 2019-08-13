@@ -1,8 +1,6 @@
 # If tmux not running then start it
 if [ "$TMUX" = "" ]; then
-    tmux -f ~/.tmux.conf new -s main
-else
-    tmux a -t main
+    tmux -f ~/.tmux.conf new 
 fi
 
 # Source antigen and it's config
@@ -70,9 +68,6 @@ if [[ "$SSH_AGENT_PID" == "" ]]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-EXPERT_ID=$(xinput list | grep -i "kensington expert" | head -n 1 | sed -r 's/.*id=([0-9]+).*/\1/')
-xinput --set-button-map $EXPERT_ID 1 8 3 4 5 3 3 9 3
 
 # Tell antigen that you're done.
 antigen apply

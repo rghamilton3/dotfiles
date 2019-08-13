@@ -4,15 +4,13 @@ INSTALL_DIR="$PWD"
 
 installPythonRequiremnts() {
     echo "*** Installing pip..."
-    pacaur -S --needed python{2,}-{setuptools,pip}
+    wget https://bootstrap.pypa.io/get-pip.py
+    sudo -H python get-pip.py
+    sudo -H python36 get-pip.py
 
     echo "*** Installing virtualenv..."
-    sudo -H pip install virtualenv
-    sudo rm -rf ~/get-pip.py ~/.cache/pip
-
-    echo "*** Installing pyenv..."
-    pacaur -S --needed pyenv
-    git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+    sudo -H /usr/local/bin/pip install virtualenv virtualenvwrapper
+    sudo rm -rf get-pip.py ~/.cache/pip
 }
 
 run_ln=true
@@ -55,12 +53,7 @@ echo "Install required software from repos?";
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
-            sudo pacman -S --needed  tmux zsh vim curl wget git hub cmake;
-            git clone https://aur.archlinux.org/pacaur;
-            cd pacaur;
-            makepkg -si --needed;
-            cd ..;
-            rm -rf pacaur;
+            sudo yum install tmux zsh vim-X11 curl wget git cmake;
             break;;
         No )
             break;;

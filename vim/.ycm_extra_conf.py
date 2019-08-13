@@ -5,7 +5,7 @@ import logging
 import ycm_core
 import re
 
-BASE_FLAGS = [
+C_BASE_FLAGS = [
         '-Wall',
         '-Wextra',
         '-Werror',
@@ -14,17 +14,36 @@ BASE_FLAGS = [
         '-fexceptions',
         '-ferror-limit=10000',
         '-DNDEBUG',
-        '-std=c++14',
+        '-std=c89',
+        '-I/usr/lib/',
+        '-I/usr/include/'
+        '-I/home/rghamilton3/workspace/aspect/ccdd/include',
+        '-I/home/rghamilton3/workspace/aspect/target_defs/cpu5/cfgs',
+        '-I/home/rghamilton3/workspace/aspect/target_defs/shared/cfgs',
+        ]
+
+CPP_BASE_FLAGS = [
+        '-Wall',
+        '-Wextra',
+        '-Wno-long-long',
+        '-Wno-variadic-macros',
+        '-fexceptions',
+        '-ferror-limit=10000',
+        '-DNDEBUG',
+        '-std=c++1z',
         '-xc++',
         '-I/usr/lib/',
         '-I/usr/include/'
         ]
 
-SOURCE_EXTENSIONS = [
+C_SOURCE_EXTENSIONS = [
+        '.c'
+        ]
+
+CPP_SOURCE_EXTENSIONS = [
         '.cpp',
         '.cxx',
         '.cc',
-        '.c',
         '.m',
         '.mm'
         ]
@@ -47,46 +66,18 @@ HEADER_DIRECTORIES = [
 
 BUILD_DIRECTORY = 'build';
 
+def IsSourceFile(filename):
+    extension = os.path.splitext(filename)[1]
+    return extension in C_SOURCE_EXTENSIONS + CPP_SOURCE_EXTENSIONS
+
 def IsHeaderFile(filename):
     extension = os.path.splitext(filename)[1]
     return extension in HEADER_EXTENSIONS
 
-def GetCompilationInfoForHeaderRos(headerfile, database):
-    """Return the compile flags for the corresponding src file in ROS
-
-    Return the compile flags for the source file corresponding to the header
-    file in the ROS where the header file is.
-    """
-    try:
-        import rospkg
-    except ImportError:
-        return None
-    pkg_name = rospkg.get_package_name(headerfile)
-    if not pkg_name:
-        return None
-    try:
-        pkg_path = rospkg.RosPack().get_path(pkg_name)
-    except rospkg.ResourceNotFound:
-        return None
-    filename_no_ext = os.path.splitext(headerfile)[0]
-    hdr_basename_no_ext = os.path.basename(filename_no_ext)
-    for path, dirs, files in os.walk(pkg_path):
-        for src_filename in files:
-            src_basename_no_ext = os.path.splitext(src_filename)[0]
-            if hdr_basename_no_ext != src_basename_no_ext:
-                continue
-            for extension in SOURCE_EXTENSIONS:
-                if src_filename.endswith(extension):
-                    compilation_info = database.GetCompilationInfoForFile(
-                        path + os.path.sep + src_filename)
-                    if compilation_info.compiler_flags_:
-                        return compilation_info
-    return None
-
 def GetCompilationInfoForFile(database, filename):
     if IsHeaderFile(filename):
         basename = os.path.splitext(filename)[0]
-        for extension in SOURCE_EXTENSIONS:
+        for extension in C_SOURCE_EXTENSIONS + CPP_SOURCE_EXTENSIONS:
             # Get info from the source files by replacing the extension.
             replacement_file = basename + extension
             if os.path.exists(replacement_file):
@@ -101,10 +92,6 @@ def GetCompilationInfoForFile(database, filename):
                         compilation_info = database.GetCompilationInfoForFile(src_file)
                         if compilation_info.compiler_flags_:
                             return compilation_info
-        # Look in the ROS package
-        compilation_info = GetCompilationInfoForHeaderRos(database, filename)
-        if compilation_info:
-            return compilation_info
         return None
     return database.GetCompilationInfoForFile(filename)
 
@@ -125,40 +112,6 @@ def FindNearest(path, target, build_folder=None):
             return candidate;
 
     return FindNearest(parent, target, build_folder)
-
-def GetRosIncludePaths():
-    """Return a list of potential include directories
-
-    The directories are looked for in $ROS_WORKSPACE.
-    """
-    try:
-        from rospkg import RosPack
-    except ImportError:
-        return []
-    rospack = RosPack()
-    includes = []
-    includes.append(os.path.expandvars('$ROS_WORKSPACE') + '/devel/include')
-    for p in rospack.list():
-        if os.path.exists(rospack.get_path(p) + '/include'):
-            includes.append(rospack.get_path(p) + '/include')
-            logging.ino("Found ROS package: " + p)
-    for distribution in os.listdir('/opt/ros'):
-        includes.append('/opt/ros/' + distribution + '/include')
-        logging.info("Found ROS distro: " + distribution)
-    return includes
-
-
-def GetRosIncludeFlags():
-    logging.info("In GetRosIncludeFlags()")
-    includes = GetRosIncludePaths()
-    flags = []
-    flagStr = ""
-    for include in includes:
-        flags.append('-isystem')
-        flags.append(include)
-        flagStr = flagStr + include + " "
-    logging.info("Found ROS flags: " + flagStr )
-    return flags
 
 def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
     if not working_directory:
@@ -211,22 +164,10 @@ def FlagsForInclude(root):
 
 def FlagsForCompilationDatabase(root, filename):
     try:
-        try:
-            import rospkg
-        except ImportError:
-            return ''
-        pkg_name = rospkg.get_package_name(filename)
-        if pkg_name:
-            compilation_db_dir = (os.path.expandvars('$ROS_WORKSPACE') +
-                   os.path.sep +
-                   'build' +
-                   os.path.sep +
-                   pkg_name)
-        else:
-            # Last argument of next function is the name of the build folder for
-            # out of source projects
-            compilation_db_path = FindNearest(root, 'compile_commands.json', BUILD_DIRECTORY)
-            compilation_db_dir = os.path.dirname(compilation_db_path)
+        # Last argument of next function is the name of the build folder for
+        # out of source projects
+        compilation_db_path = FindNearest(root, 'compile_commands.json', BUILD_DIRECTORY)
+        compilation_db_dir = os.path.dirname(compilation_db_path)
         logging.info("Set compilation database directory to " + compilation_db_dir)
         compilation_db =  ycm_core.CompilationDatabase(compilation_db_dir)
         if not compilation_db:
@@ -244,11 +185,17 @@ def FlagsForCompilationDatabase(root, filename):
 
 def FlagsForFile(filename):
     root = os.path.realpath(filename);
-    final_flags = BASE_FLAGS + GetRosIncludeFlags()
     compilation_db_flags = FlagsForCompilationDatabase(root, filename)
     if compilation_db_flags:
-        final_flags = final_flags + compilation_db_flags
+        final_flags = compilation_db_flags
     else:
+        if IsSourceFile(filename):
+            extension = os.path.splitext(filename)[1]
+            if extension in C_SOURCE_EXTENSIONS:
+                final_flags = C_BASE_FLAGS
+            else:
+                final_flags = CPP_BASE_FLAGS
+
         clang_flags = FlagsForClangComplete(root)
         if clang_flags:
             final_flags = final_flags + clang_flags
