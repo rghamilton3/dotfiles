@@ -149,21 +149,21 @@ else
     run_ln=true
 fi
 
-if [[ -d "$HOME"/vim/autoload ]]
+if [[ -d "$HOME"/.vim/autoload ]]
 then
-    moveFileIfExists "$HOME"/vim/autoload/plug.vim
+    moveFileIfExists "$HOME"/.vim/autoload/plug.vim
 else
-    mkdir -p "$HOME"/vim/autoload
+    mkdir -p "$HOME"/.vim/autoload
 fi
 if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/vim/autoload/plug.vim
+    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/.vim/autoload/plug.vim
 else
     run_ln=true
 fi
 
-if [[ ! -d "$HOME"/vim/undo ]]
+if [[ ! -d "$HOME"/.vim/undo ]]
 then
-    mkdir -p "$HOME"/vim/undo
+    mkdir -p "$HOME"/.vim/undo
 fi
 
 # TMUX
@@ -177,19 +177,6 @@ fi
 moveFileIfExists "$HOME/.tmux"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/tmux" "$HOME/.tmux"
-else
-    run_ln=true
-fi
-
-# TERMITE
-if [[ ! -d "$HOME"/.config/termite ]]
-then
-    mkdir -p "$HOME"/.config/termite
-else
-    moveFileIfExists "$HOME"/.config/termite/config
-fi
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
 else
     run_ln=true
 fi
