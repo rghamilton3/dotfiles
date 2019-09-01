@@ -101,9 +101,6 @@ Plug 'vim-jp/syntax-vim-ex'
 "" Todo.txt
 Plug 'freitass/todo.txt-vim'
 
-"" ROS
-Plug 'taketwo/vim-ros'
-
 " All of your Plugins must be added before the following line
 " Initialize plugin system
 call plug#end()
