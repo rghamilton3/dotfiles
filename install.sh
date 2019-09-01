@@ -2,6 +2,10 @@
 
 INSTALL_DIR="$HOME"/.dotfiles
 
+sudo apt install -y zsh tmux vim
+
+chsh rghamilton3 -s /usr/bin/zsh
+
 # ZSH
 if [[ ! -e "$HOME/.zshrc" ]]; then
     ln -s "$INSTALL_DIR/zsh/zshrc" "$HOME/.zshrc"
