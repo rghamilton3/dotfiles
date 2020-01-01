@@ -56,6 +56,17 @@ installPyenv() {
         xz-utils tk-dev
 }
 
+installOpenCorsairLink() {
+    sudo apt install -y libusb-1.0-0-dev pkg-config
+    git clone git@github.com:audiohacked/OpenCorsairLink.git
+    cd OpenCorsairLink
+    make -j$(nproc)
+    sudo make install
+    sudo ln -sv /usr/local/bin/OpenCorsairLink.elf /usr/local/bin/opencorsairlink
+    cd ..
+    sudo ln -sv "$INSTALL_DIR"/set_cooler_mode.sh /usr/local/bin/set_cooler_mode
+}
+
 run_ln=true
 moveFileIfExists() {
     if [[ -h "$1" ]]; then
@@ -138,6 +149,20 @@ select ans in "Yes" "No" "Quit"; do
         Yes )
             installTermite
             termite_installed=true
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
+
+echo "Install OpenCorsairLink?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            installOpenCorsairLink
             break;;
         No )
             break;;
