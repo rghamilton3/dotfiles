@@ -1,15 +1,15 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 INSTALL_DIR="$PWD"
 
 installTermite() {
     sudo apt install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool libpcre2-dev libglib3.0-cil-dev libgnutls28-dev libgirepository1.0-dev libxml2-utils gperf build-essential
-    
+
     mkdir -p $HOME/source_builds
     cd $HOME/source_builds
     git clone https://github.com/thestinger/vte-ng.git
     echo export LIBRARY_PATH="/usr/include/gtk-3.0:$LIBRARY_PATH"
-    cd vte-ng && ./autogen.sh && make && sudo make install 
+    cd vte-ng && ./autogen.sh && make && sudo make install
     cd ..
 
     git clone --recursive https://github.com/thestinger/termite.git
@@ -17,33 +17,48 @@ installTermite() {
     sudo ldconfig
     sudo mkdir -p /lib/terminfo/x
     sudo ln -s /usr/local/share/terminfo/x/xterm-termite /lib/terminfo/x/xterm-termite
-    cd $INSTALL_DIR
+    cd "$INSTALL_DIR"
 }
 
 installPythonRequiremnts() {
-    echo "*** Installing pip..."
-    wget https://bootstrap.pypa.io/get-pip.py
-    sudo -H python get-pip.py
-    rm get-pip.py
+    # Check if pip is already installed for Python 2 or 3
+    pip_needed=()
+    if ! [[ -x "$(command -v pip2)" ]]; then
+        pip_needed+=(python2)
+    fi
+    if ! [[ -x "$(command -v pip3)" ]]; then
+        pip_needed+=(python3)
+    fi
+
+    # Install pip as needed
+    if [[ ${#pip_needed[@]} ]]; then
+        echo "*** Installing pip..."
+        wget https://bootstrap.pypa.io/get-pip.py
+        for ver in "${pip_needed[@]}"; do
+            sudo -H "$ver" get-pip.py
+        done
+        rm get-pip.py
+    fi
 
     echo "*** Installing virtualenv..."
     sudo -H pip install virtualenv
     sudo rm -rf ~/get-pip.py ~/.cache/pip
+}
 
+installPyenv() {
     echo "*** Installing pyenv..."
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 
     echo "*** Installing pyenv build requirements..."
-    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+    sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
         libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
         xz-utils tk-dev
 }
 
 run_ln=true
 moveFileIfExists() {
-    if [[ -h "$1" ]]
-    then
+    if [[ -h "$1" ]]; then
         echo "Remove symlink ${1}?"
         select ans in "Yes" "No" "Quit"; do
             case $ans in
@@ -70,8 +85,7 @@ moveFileIfExists() {
                     exit;;
             esac
         done
-    elif [[ -d "$1" ]] || [[ -e "$1" ]]
-    then
+    elif [[ -d "$1" ]] || [[ -e "$1" ]]; then
         mv "$1" "$1".bak
     fi
 }
@@ -104,11 +118,26 @@ select ans in "Yes" "No" "Quit"; do
     esac
 done
 
+echo "Install Pyenv?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            installPyenv
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
+
 echo "Install Termite?"
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
             installTermite
+            termite_installed=true
             break;;
         No )
             break;;
@@ -121,13 +150,6 @@ done
 echo "*** Installing config files and directories..."
 
 # MISC
-moveFileIfExists "$HOME/.xprofile"
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
-else
-    run_ln=true
-fi
-
 moveFileIfExists "$HOME/.clang-format"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/clang-format" "$HOME/.clang-format"
@@ -190,17 +212,17 @@ else
     run_ln=true
 fi
 
-if [[ -d "$HOME"/.vim/autoload ]]
-then
-    moveFileIfExists "$HOME"/.vim/autoload/plug.vim
-else
-    mkdir -p "$HOME"/.vim/autoload
-fi
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/.vim/autoload/plug.vim
-else
-    run_ln=true
-fi
+#if [[ -d "$HOME"/.vim/autoload ]]
+#then
+#    moveFileIfExists "$HOME"/.vim/autoload/plug.vim
+#else
+#    mkdir -p "$HOME"/.vim/autoload
+#fi
+#if [ "$run_ln" = true ]; then
+#    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/.vim/autoload/plug.vim
+#else
+#    run_ln=true
+#fi
 
 if [[ ! -d "$HOME"/.vim/undo ]]
 then
@@ -223,14 +245,15 @@ else
 fi
 
 # TERMITE
-if [[ ! -d "$HOME"/.config/termite ]]
-then
-    mkdir -p "$HOME"/.config/termite
-else
-    moveFileIfExists "$HOME"/.config/termite/config
-fi
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/termite/config "$HOME"/.config/termite/config
-else
-    run_ln=true
+if [ "$termite_installed" = true ]; then
+    if [[ ! -d "$HOME"/.config/termite ]]; then
+        mkdir -p "$HOME"/.config/termite
+    else
+        moveFileIfExists "$HOME"/.config/termite/config
+    fi
+    if [ "$run_ln" = true ]; then
+        ln -sv "$INSTALL_DIR"/termite.config "$HOME"/.config/termite/config
+    else
+        run_ln=true
+    fi
 fi
