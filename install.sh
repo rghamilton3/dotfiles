@@ -4,7 +4,6 @@ INSTALL_DIR="$PWD"
 
 installTermite() {
     sudo apt install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool libpcre2-dev libglib3.0-cil-dev libgnutls28-dev libgirepository1.0-dev libxml2-utils gperf build-essential
-
     mkdir -p $HOME/source_builds
     cd $HOME/source_builds
     git clone https://github.com/thestinger/vte-ng.git
@@ -65,6 +64,17 @@ installOpenCorsairLink() {
     sudo ln -sv /usr/local/bin/OpenCorsairLink.elf /usr/local/bin/opencorsairlink
     cd ..
     sudo ln -sv "$INSTALL_DIR"/set_cooler_mode.sh /usr/local/bin/set_cooler_mode
+}
+
+enableSshAgent() {
+    service_path="$HOME/.config/systemd/user"
+    if ! [[ -d "$service_path" ]]; then
+        mkdir -p "$service_path"
+    fi
+    ln -sv "$INSTALL_DIR"/ssh-agent.service "$service_path"/
+    echo 'SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"' >> "$HOME"/.pam_environment
+    systemctl --user enable ssh-agent.service
+    systemctl --user start ssh-agent.service
 }
 
 run_ln=true
@@ -163,6 +173,20 @@ select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
             installOpenCorsairLink
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
+
+echo "Enable ssh-agent service?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            enableSshAgent
             break;;
         No )
             break;;
