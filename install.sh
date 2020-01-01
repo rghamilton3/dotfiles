@@ -105,7 +105,7 @@ echo "Install required software from repos?";
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
-            sudo apt install tmux zsh vim-gtk python{,3}-dev wget git;
+            sudo apt install tmux zsh vim python{,3}-dev wget git autojump;
             break;;
         No )
             break;;
