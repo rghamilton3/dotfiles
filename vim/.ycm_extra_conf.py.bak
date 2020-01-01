@@ -26,7 +26,8 @@ SOURCE_EXTENSIONS = [
         '.cc',
         '.c',
         '.m',
-        '.mm'
+        '.mm',
+        '.cu'
         ]
 
 SOURCE_DIRECTORIES = [
@@ -38,11 +39,13 @@ HEADER_EXTENSIONS = [
         '.h',
         '.hxx',
         '.hpp',
-        '.hh'
+        '.hh',
+        '.cuh'
         ]
 
 HEADER_DIRECTORIES = [
-        'include'
+        'include',
+        'inc'
         ]
 
 BUILD_DIRECTORY = 'build';
