@@ -42,4 +42,5 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # Load the theme.
-antigen theme robbyrussell/oh-my-zsh themes/norm
+#antigen theme robbyrussell/oh-my-zsh themes/norm
+antigen theme denysdovhan/spaceship-prompt
