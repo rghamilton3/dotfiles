@@ -32,17 +32,17 @@ installPythonRequiremnts() {
 
     # Install pip as needed
     if [[ ${#pip_needed[@]} ]]; then
-        echo "*** Installing pip..."
         wget https://bootstrap.pypa.io/get-pip.py
         for ver in "${pip_needed[@]}"; do
+            echo "*** Installing pip for "$ver"..."
             sudo -H "$ver" get-pip.py
         done
-        rm get-pip.py
+        sudo rm -rf get-pip.py ~/.cache/pip
     fi
 
     echo "*** Installing virtualenv..."
-    sudo -H pip install virtualenv
-    sudo rm -rf ~/get-pip.py ~/.cache/pip
+    sudo -H pip2 install virtualenv virtualenvwrapper
+    sudo -H pip3 install virtualenv virtualenvwrapper
 }
 
 installPyenv() {
