@@ -1,5 +1,7 @@
 # If tmux not running then start it
-if [ "$TMUX" = "" ]; then tmux -f ~/.tmux.conf; fi
+if [ "$TMUX" = "" ];
+    then tmux -f ~/.tmux.conf a;
+fi
 
 # Source antigen and it's config
 # If there is cache available, use it
@@ -69,3 +71,18 @@ fi
 
 # Tell antigen that you're done.
 antigen apply
+
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  package       # Package version
+  node          # Node.js section
+  docker        # Docker section
+  pyenv         # Pyenv section
+  exec_time     # Execution time
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
