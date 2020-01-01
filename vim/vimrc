@@ -57,7 +57,7 @@ Plug 'MattesGroeger/vim-bookmarks'
 " Simple templates
 Plug 'aperezdc/vim-template'
 " A code-completion engine
-Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer --go-completer --rust-completer' }
+Plug 'valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer' }
 " Generates config files for YouCompleteMe
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 " Snippets engine and snippets
@@ -102,7 +102,7 @@ Plug 'vim-jp/syntax-vim-ex'
 Plug 'freitass/todo.txt-vim'
 
 "" ROS
-Plug 'taketwo/vim-ros'
+""Plug 'taketwo/vim-ros'
 
 " All of your Plugins must be added before the following line
 " Initialize plugin system
@@ -121,12 +121,24 @@ let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 " Shortcut for goto current definition
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"" let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Don't ask to load config
 let g:ycm_confirm_extra_conf = 0
+
+" Set ALE config
+let g:ale_linter_aliases = {'cuda': ['cuda', 'cpp']}
+let g:ale_linters = {
+\   'cpp': ['clangtidy'],
+\}
+let g:ale_fixer_aliases = {'cuda': ['cuda', 'cpp']}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'cpp': ['clang-format'],
+\}
 
 " Use 'Enter' for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = '<nop>'
@@ -140,12 +152,6 @@ function ExpandSnippetOrCarriageReturn()
     endif
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-
-"" Artistic style
-autocmd BufNewFile,BufRead *.cpp set formatprg=astyle
-autocmd BufNewFile,BufRead *.hpp set formatprg=astyle
-autocmd BufNewFile,BufRead *.c set formatprg=astyle
-autocmd BufNewFile,BufRead *.h set formatprg=astyle
 
 "" Airline
 let g:airline_theme = 'zenburn'
@@ -220,6 +226,7 @@ map <leader>t :Tags<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set backspace=indent,eol,start
 set laststatus=2
 set showtabline=2
 set tabstop=4
