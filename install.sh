@@ -77,6 +77,20 @@ select ans in "Yes" "No" "Quit"; do
     esac
 done
 
+echo "Set global gitignore?"
+select ans in "Yes" "No" "Quit"; do
+    case $ans in
+        Yes )
+            git config --global core.excludesfile "$INSTALL_DIR"/.gitignore_global
+            break;;
+        No )
+            break;;
+        Quit )
+            echo "Quitting...";
+            exit;;
+    esac
+done
+
 echo "*** Installing config files and directories..."
 
 # MISC
