@@ -1,8 +1,66 @@
 ---
-Language:        Cpp
-BasedOnStyle:  Google
-BreakBeforeBraces: Allman
----
-Language: Proto
-# Don't format .proto files.
-DisableFormat: true
+Language: Cpp
+# BasedOnStyle:  SSET FSW C Code Standards Jan 2014 and the personal preferences of Robert Hamilton
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignOperands: true
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Custom
+BraceWrapping:
+ AfterCaseLabel: true
+ AfterControlStatement: Always
+ AfterEnum: true
+ AfterFunction: true
+ AfterStruct: true
+ AfterUnion: true
+ AfterExternBlock: false
+ BeforeElse: true
+ IndentBraces: false
+ SplitEmptyFunction: true
+ SplitEmptyRecord: true
+BreakStringLiterals: true
+ColumnLimit: 120
+ContinuationIndentWidth: 2
+ExperimentalAutoDetectBinPacking: false
+DerivePointerAlignment: false
+IncludeBlocks: Preserve
+IndentCaseLabels: true
+IndentGotoLabels: false
+IndentPPDirectives: None
+IndentWidth: 2
+IndentWrappedFunctionNames: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+PointerAlignment: Left
+ReflowComments: false
+SortIncludes: false
+SpaceAfterCStyleCast: true
+SpaceAfterLogicalNot: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 2
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+UseTab: Never
+PenaltyBreakAssignment: 10000
+PenaltyReturnTypeOnItsOwnLine: 1000
+PenaltyExcessCharacter: 10
+PenaltyBreakBeforeFirstCallParameter: 100
