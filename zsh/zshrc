@@ -1,9 +1,9 @@
 # If tmux not running then start it
 if [ "$TMUX" = "" ]; then
-    tmux -f ~/.tmux.conf new -s main
-else
-    tmux a -t main
+    tmux -f ~/.tmux.conf a;
 fi
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Source antigen and it's config
 # If there is cache available, use it
@@ -43,11 +43,6 @@ autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-# Deer (Ranger like file navigator)
-autoload -U deer
-zle -N deer
-bindkey '\ek' deer
-
 [[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-beginning-search
 
@@ -61,18 +56,20 @@ alias help=run-help
 # Persistent rehash
 zstyle ':completion:*' rehash true
 
-# Start ssh-agent if not already running
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > ~/.ssh-agent-thing
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval "$(<~/.ssh-agent-thing)"
-fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-EXPERT_ID=$(xinput list | grep -i "kensington expert" | head -n 1 | sed -r 's/.*id=([0-9]+).*/\1/')
-xinput --set-button-map $EXPERT_ID 1 8 3 4 5 3 3 9 3
 
 # Tell antigen that you're done.
 antigen apply
+
+SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  package       # Package version
+  node          # Node.js section
+  docker        # Docker section
+  pyenv         # Pyenv section
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)

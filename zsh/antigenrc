@@ -7,39 +7,51 @@ antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
     # Oh-My-Zsh
+    archlinux
     autojump # A cd command that learns
+    bgnotify
     colorize # Plugin for highlighting file content
     command-not-found
     common-aliases
+    copybuffer
+    direnv
     docker
     docker-compose
+    fzf
+    npm
+    npx
     pip
+    pipenv
+    pyenv
     python
+    ssh-agent
     systemd
+    thefuck
     tmux
-    virtualenv
+    vi-mode
+    vscode
 
 
     # Git related
     git
+    git-extras
+    git-flow-avh
     peterhurford/git-aliases.zsh
-    unixorn/git-extra-commands
-    petervanderdoes/git-flow-completion
     voronkovich/gitignore.plugin.zsh
 
     # Misc
     djui/alias-tips
     zuxfoucault/colored-man-pages_mod
-    Vifon/deer
-    fabiokiatkowski/exercism.plugin.zsh
+    Vifon/zranger
     zdharma/fast-syntax-highlighting
     zdharma/history-search-multi-word
     chrissicool/zsh-256color
-    Tarrasch/zsh-autoenv
+    #Tarrasch/zsh-autoenv
     hlissner/zsh-autopair
     zsh-users/zsh-autosuggestions
     zsh-users/zsh-completions
 EOBUNDLES
 
 # Load the theme.
-antigen theme robbyrussell/oh-my-zsh themes/norm
+#antigen theme robbyrussell/oh-my-zsh themes/norm
+antigen theme denysdovhan/spaceship-prompt

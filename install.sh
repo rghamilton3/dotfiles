@@ -4,15 +4,13 @@ INSTALL_DIR="$PWD"
 
 installPythonRequiremnts() {
     echo "*** Installing pip..."
-    pacaur -S --needed python{2,}-{setuptools,pip}
+    yay -Sy --needed python{2,}-{setuptools,pip}
 
-    echo "*** Installing virtualenv..."
-    sudo -H pip install virtualenv
-    sudo rm -rf ~/get-pip.py ~/.cache/pip
+    echo "*** Installing pipenv..."
+    sudo -H pip install pipenv
 
     echo "*** Installing pyenv..."
-    pacaur -S --needed pyenv
-    git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+    yay -Sy --needed pyenv
 }
 
 run_ln=true
@@ -55,12 +53,12 @@ echo "Install required software from repos?";
 select ans in "Yes" "No" "Quit"; do
     case $ans in
         Yes )
-            sudo pacman -S --needed  tmux zsh vim curl wget git hub cmake;
-            git clone https://aur.archlinux.org/pacaur;
-            cd pacaur;
-            makepkg -si --needed;
-            cd ..;
-            rm -rf pacaur;
+            #git clone https://aur.archlinux.org/yay;
+            #cd yay;
+            #makepkg -si --needed;
+            #cd ..;
+            #rm -rf yay;
+            yay -Sy --needed  tmux zsh vim curl wget git hub cmake direnv ranger nodejs yarn thefuck fzf silver-searcher-git autojump;
             break;;
         No )
             break;;
@@ -87,13 +85,6 @@ done
 echo "*** Installing config files and directories..."
 
 # MISC
-moveFileIfExists "$HOME/.xprofile"
-if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR/xprofile" "$HOME/.xprofile"
-else
-    run_ln=true
-fi
-
 moveFileIfExists "$HOME/.clang-format"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/clang-format" "$HOME/.clang-format"
@@ -104,6 +95,30 @@ fi
 moveFileIfExists "$HOME/.ctags"
 if [ "$run_ln" = true ]; then
     ln -sv "$INSTALL_DIR/ctags" "$HOME/.ctags"
+else
+    run_ln=true
+fi
+
+moveFileIfExists "$HOME/.profile"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/profile" "$HOME/.profile"
+else
+    run_ln=true
+fi
+
+moveFileIfExists "$HOME/.config/ranger"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/ranger" "$HOME/.config/"
+else
+    run_ln=true
+fi
+
+moveFileIfExists "$HOME/.gitignore"
+if [ "$run_ln" = true ]; then
+    ln -sv "$INSTALL_DIR/gitignore.global" "$HOME/.gitignore"
+    git config --global user.name "$1"
+    git config --global user.email "$2"
+    git config --global core.excludesfile ~/.gitignore
 else
     run_ln=true
 fi
@@ -156,21 +171,21 @@ else
     run_ln=true
 fi
 
-if [[ -d "$HOME"/vim/autoload ]]
+if [[ -d "$HOME"/.vim/autoload ]]
 then
-    moveFileIfExists "$HOME"/vim/autoload/plug.vim
+    moveFileIfExists "$HOME"/.vim/autoload/plug.vim
 else
-    mkdir -p "$HOME"/vim/autoload
+    mkdir -p "$HOME"/.vim/autoload
 fi
 if [ "$run_ln" = true ]; then
-    ln -sv "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/vim/autoload/plug.vim
+    cp "$INSTALL_DIR"/vim/vim-plug/plug.vim "$HOME"/.vim/autoload/plug.vim
 else
     run_ln=true
 fi
 
-if [[ ! -d "$HOME"/vim/undo ]]
+if [[ ! -d "$HOME"/.vim/undo ]]
 then
-    mkdir -p "$HOME"/vim/undo
+    mkdir -p "$HOME"/.vim/undo
 fi
 
 # TMUX
