@@ -1,0 +1,15 @@
+export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+
+alias vim='nvim'
+export EDITOR='nvim'
+
+alias cat="bat"
+alias dc="docker-compose"
+alias ls="eza"
+alias ll="eza -l -a"
+alias la="eza -a"
+alias v="vifmrun ."
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+export ZOXIDE_CMD_OVERRIDE="cd"

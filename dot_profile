@@ -1,0 +1,9 @@
+export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+
+alias vim="nvim"
+export EDITOR="nvim"
+
+alias cat="bat"
+alias dc="docker-compose"
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
