@@ -6,6 +6,9 @@ export EDITOR='nvim'
 alias cat="bat"
 alias dc="docker-compose"
 alias v="vifmrun ."
+alias yu="yay -Syuu"
+alias yi="yay -Sy"
+alias yn="yay -Sy --needed"
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
