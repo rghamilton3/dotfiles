@@ -1,69 +1,143 @@
-# Start configuration added by Zim install {{{
+source ~/.zplug/init.zsh
+
+# Applies correct bindkeys for input events.
+zplug "zimfw/input"
+
+# Archlinux aliases and functions
+zplug "junker/zsh-archlinux"
+# Add `fd` aliases
+zplug "MohamedElashri/fd-zsh"
+# Search keybinding with fzf, bat and fd
+zplug "leophys/zsh-plugin-fzf-finder"
+# Add fzf plugins for chezmoi, docker, git, kubectl and pass
+zplug "ethan605/fzfsh"
+# Git aliases and functions
+zplug "gimbo/gimbo-git.zsh"
+# Kubectl aliases
+zplug "yzdann/kctl"
+# Eza aliases
+zplug "duggum/zeza"
+# Adds color to man pages
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+# Provide suggested packages if a command not found.
+zplug "plugins/command-not-found", from:oh-my-zsh
+# List aliases based on enabled plugins
+zplug "plugins/aliases", from:oh-my-zsh
+
 #
-# User configuration sourced by interactive shells
+# Completions
 #
 
-# -----------------
-# Zsh configuration
-# -----------------
-fpath+=~/.zfunc
+# Additional completion definitions for Zsh
+zplug "zsh-users/zsh-completions", use:src
+# Systemd related completions and aliases
+zplug "plugins/systemd", from:oh-my-zsh
+# Add syntax highlight but load AFTER `compinit`
+zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
+# Fish-like history search (up arrow) for Zsh.
+# zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
+zplug "zsh-users/zsh-history-substring-search", defer:2
+# Fish-like autosuggestions for Zsh.
+zplug "zsh-users/zsh-autosuggestions", defer:2
+# Local plugins
+zplug "~/.zsh", from:local
+
+#
+# Generic options and environment settings
+#
+
+#
+# Changing directories
+#
+
+# Perform cd to a directory if the typed command is invalid, but is a directory.
+setopt AUTO_CD
+
+# Make cd push the old directory to the directory stack.
+setopt AUTO_PUSHD
+
+autoload -Uz is-at-least && if is-at-least 5.8; then
+  # Don't print the working directory after a cd.
+  setopt CD_SILENT
+fi
+
+# Don't push multiple copies of the same directory to the stack.
+setopt PUSHD_IGNORE_DUPS
+
+# Don't print the directory stack after pushd or popd.
+setopt PUSHD_SILENT
+
+# Have pushd without arguments act like `pushd ${HOME}`.
+setopt PUSHD_TO_HOME
+
+#
+# Expansion and globbing
+#
+
+# Treat `#`, `~`, and `^` as patterns for filename globbing.
+setopt EXTENDED_GLOB
 
 #
 # History
 #
 
+# The file to save the history in.
+if (( ! ${+HISTFILE} )) typeset -g HISTFILE=${ZDOTDIR:-${HOME}}/.zhistory
+
+# The maximum number of events stored internally and saved in the history file.
+# The former is greater than the latter in case user wants HIST_EXPIRE_DUPS_FIRST.
+HISTSIZE=20000
+SAVEHIST=10000
+
+# Don't display duplicates when searching the history.
+setopt HIST_FIND_NO_DUPS
+
+# Don't enter immediate duplicates into the history.
+setopt HIST_IGNORE_DUPS
+
+# Remove commands from the history that begin with a space.
+setopt HIST_IGNORE_SPACE
+
 # Remove older command from the history if a duplicate is to be added.
 setopt HIST_IGNORE_ALL_DUPS
+
+# Don't execute the command directly upon history expansion.
+setopt HIST_VERIFY
 
 #
 # Input/output
 #
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
-bindkey -e
+bindkey -v
 
 # Prompt for spelling correction of commands.
 setopt CORRECT
 
-# Customize spelling correction prompt.
-#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+# Allow comments starting with `#` in the interactive shell.
+setopt INTERACTIVE_COMMENTS
+
+# Disallow `>` to overwrite existing files. Use `>|` or `>!` instead.
+setopt NO_CLOBBER
 
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
-# -----------------
-# Zim configuration
-# -----------------
-
-# Use degit instead of git as the default tool to install and update modules.
-#zstyle ':zim:zmodule' use 'degit'
-
-# --------------------
-# Module configuration
-# --------------------
-
 #
-# git
+# Job control
 #
 
-# Set a custom prefix for the generated aliases. The default prefix is 'G'.
-# zstyle ':zim:git' aliases-prefix 'g'
+# List jobs in verbose format by default.
+setopt LONG_LIST_JOBS
 
-#
-# input
-#
+# Prevent background jobs being given a lower priority.
+setopt NO_BG_NICE
 
-# Append `../` to your input for each `.` you type after an initial `..`
-zstyle ':zim:input' double-dot-expand yes
+# Prevent status report of jobs on shell exit.
+setopt NO_CHECK_JOBS
 
-#
-# termtitle
-#
-
-# Set a custom terminal title format using prompt expansion escape sequences.
-# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
-# If none is provided, the default '%n@%m: %~' is used.
-zstyle ':zim:termtitle' format '%1~'
+# Prevent SIGHUP to jobs on shell exit.
+setopt NO_HUP
 
 #
 # zsh-autosuggestions
@@ -73,10 +147,6 @@ zstyle ':zim:termtitle' format '%1~'
 # zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# Customize the style that the suggestions are shown with.
-# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
-
 #
 # zsh-syntax-highlighting
 #
@@ -85,35 +155,16 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-# Customize the main highlighter styles.
-# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
-#typeset -A ZSH_HIGHLIGHT_STYLES
-#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
-
-# Define ssh identities to be loaded and cached on login.
-zstyle ':zim:ssh' ids 'aur' 'github'
-
-# ------------------
-# Initialize modules
-# ------------------
-
-ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-# Download zimfw plugin manager if missing.
-if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-    if (( ${+commands[curl]} )); then
-        curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-            https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-    else
-        mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
-            https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
     fi
 fi
-# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-    source ${ZIM_HOME}/zimfw.zsh init -q
-fi
-# Initialize modules.
-source ${ZIM_HOME}/init.zsh
+
+# Then, source plugins and add commands to $PATH
+zplug load
 
 # ------------------------------
 # Post-init module configuration
@@ -123,31 +174,12 @@ source ${ZIM_HOME}/init.zsh
 # zsh-history-substring-search
 #
 
-zmodload -F zsh/terminfo +p:terminfo
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
 for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
 for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
 for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
-# }}} End configuration added by Zim install
-#
-# eval "$(fnm env --use-on-cd)"
-#
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
-
-autoload -U bashcompinit
-bashcompinit
-
-eval "$(register-python-argcomplete pipx)"
-
-eval "$(thefuck --alias)"
-
-eval "$(atuin init zsh)"
-
-# eval "$(zoxide init zsh --cmd cd)"
 
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()
@@ -167,17 +199,14 @@ _dotnet_zsh_complete()
 
 compdef _dotnet_zsh_complete dotnet
 
-PATH="/home/rghamilton3/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/rghamilton3/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/rghamilton3/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/rghamilton3/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/rghamilton3/perl5"; export PERL_MM_OPT;
+eval "$(register-python-argcomplete pipx)"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+eval "$(thefuck --alias)"
+
+eval "$(atuin init zsh)"
 
 eval "$(mise activate zsh)"
 
-# Created by `pipx` on 2024-03-20 22:36:17
-export PATH="$PATH:/home/rghamilton3/.local/bin"
+eval "$(zoxide init zsh --cmd cd)"
+
+eval "$(starship init zsh)"
