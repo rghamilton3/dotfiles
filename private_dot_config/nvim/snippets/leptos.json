@@ -1,0 +1,8 @@
+{
+  "create_signal": {
+    "prefix": "csig",
+    "body": [
+      "let ($1, set_$1) = create_signal($0);"
+    ]
+  }
+}
