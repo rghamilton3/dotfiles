@@ -21,6 +21,16 @@ end)
 config.leader = { key = "VoidSymbol", mods = "", timeout_milliseconds = 1000 }
 
 config.keys = {
+	{
+		key = "|",
+		mods = "LEADER|SHIFT",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "-",
+		mods = "LEADER",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
 	-- Switch to the default workspace
 	{
 		key = "a",
@@ -51,9 +61,6 @@ config.keys = {
 			flags = "FUZZY|WORKSPACES",
 		}),
 	},
-}
-
-config.keys = {
 	{
 		key = "|",
 		mods = "LEADER|SHIFT",
@@ -64,9 +71,6 @@ config.keys = {
 		mods = "LEADER",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
-}
-
-config.keys = {
 	-- CTRL+SHIFT+LEADER, followed by 'r' will put us in resize-pane
 	-- mode until we cancel that mode.
 	{
