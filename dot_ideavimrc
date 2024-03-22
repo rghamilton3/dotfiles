@@ -16,7 +16,7 @@ set incsearch
 map Q gq
 
 imap jj <Esc>
-set timeoutlen=1000
+set timeoutlen=500
 
 " Cycle through completion menu with j & k
 "inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
@@ -28,6 +28,11 @@ set timeoutlen=1000
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
+
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+
+set which-key
 
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
