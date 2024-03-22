@@ -8,6 +8,9 @@ return {
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
   opts = {
+    env = {
+      PATH = vim.env.HOME .. "~/.local/share/mise/shims:" .. vim.env.PATH,
+    },
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
