@@ -29,7 +29,7 @@ return {
         ["<Leader>w"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
       },
       i = {
-        ["jk"] = { "<Esc>$a", desc = "Escape and jump to end of line" },
+        ["jk"] = { "<Esc>A", desc = "Escape and jump to end of line" },
         ["jo"] = { "<Esc>o", desc = "Escape and jump to next line" },
       },
       t = {
