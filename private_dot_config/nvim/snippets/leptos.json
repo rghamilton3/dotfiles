@@ -3,6 +3,14 @@
     "prefix": "csig",
     "body": [
       "let ($1, set_$1) = create_signal($0);"
-    ]
+    ],
+    "description": "Create signal variable and setter"
+  },
+  "move": {
+    "prefix": "mv",
+    "body": [
+      "move |$1| $0"
+    ],
+    "description": "Move closure"
   }
 }
