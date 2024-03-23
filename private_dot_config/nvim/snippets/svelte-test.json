@@ -1,0 +1,7 @@
+{
+  "svelte-test-imports": {
+    "prefix": "st-imp",
+    "body": ["import { render, screen$0 } from '@testing-library/svelte'"],
+    "description": "Svelte testing imports"
+  }
+}
