@@ -1,26 +1,18 @@
 local wezterm = require("wezterm")
-local act = wezterm.action
 local config = {}
 
-config.color_scheme = "GruvboxDark"
-config.font = wezterm.font("FiraCode Nerd Font")
+config.color_scheme = "Catppuccin Frappe"
+config.font = wezterm.font("MesloLGS Nerd Font")
 
--- Show which key table is active in the status area
-wezterm.on("update-right-status", function(window, pane)
-	local name = window:active_key_table()
-	if name then
-		name = "TABLE: " .. name
-	end
-	window:set_right_status(name or "")
-end)
-
-wezterm.on("update-right-status", function(window, pane)
-	window:set_right_status(window:active_workspace())
-end)
-
-config.leader = { key = "VoidSymbol", mods = "", timeout_milliseconds = 1000 }
-
+-- Keybindings
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
+	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+	{
+		key = "a",
+		mods = "LEADER|CTRL",
+		action = wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+	},
 	{
 		key = "|",
 		mods = "LEADER|SHIFT",
@@ -33,7 +25,7 @@ config.keys = {
 	},
 	-- Switch to the default workspace
 	{
-		key = "a",
+		key = "SPACE",
 		mods = "LEADER",
 		action = act.SwitchToWorkspace({
 			name = "Main",
