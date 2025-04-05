@@ -1,7 +1,0 @@
-export EDITOR="nvim"
-export PAGER="most"
-
-export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/JetBrains/Toolbox/scripts:/usr/share/dotnet:$PATH"
-
-export SDKMAN_DIR="$HOME/.sdkman"
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
