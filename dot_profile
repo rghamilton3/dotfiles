@@ -1,9 +1,8 @@
-export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
-
-alias vim="nvim"
-export EDITOR="nvim"
-
-alias cat="bat"
-alias dc="docker-compose"
+export BROWSER=vivaldi-stable
+export TERM=alacritty
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# Added by Toolbox App
+export PATH="$PATH:/home/rghamilton3/.local/share/JetBrains/Toolbox/scripts"
