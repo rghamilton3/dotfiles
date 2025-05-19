@@ -1,0 +1,5 @@
+[user]
+	name = Robert Hamilton
+	email = robert@rghsoftware.com
+[init]
+	defaultBranch = main

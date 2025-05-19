@@ -1,0 +1,113 @@
+# Based on https://github.com/omerxx/dotfiles/blob/master/tmux/tmux.conf
+source-file ~/.config/tmux/tmux.reset.conf
+
+###########
+# General #
+###########
+set-option -g default-terminal 'screen-256color'
+set-option -g terminal-overrides ',xterm-256color:RGB'
+set -g prefix ^A
+set -g base-index 1              # start indexing windows at 1 instead of 0
+set -g detach-on-destroy off     # don't exit from tmux when closing a session
+set -g escape-time 0             # zero-out escape time delay
+set -g history-limit 1000000     # increase history size (from 2,000)
+set -g renumber-windows on       # renumber all windows when any window is closed
+set -g set-clipboard on          # use system clipboard
+set -g status-position top       # macOS / darwin style
+setw -g mode-keys vi
+set -g focus-events on           # Needed for nvim
+set -g allow-passthrough on      # Needed for nvim snacks.images
+
+################
+# Key bindings #
+################
+bind R source-file '~/.tmux.conf'
+
+##########
+# Status #
+##########
+# Bars
+set -g status-interval 1
+set -g status on
+set -g status-justify left
+set -g status-style bg=black,fg=white
+set -g status-left "#[fg=black,bg=blue,bold] #S #[fg=blue,bg=black,nobold,noitalics,nounderscore]"
+set -g status-right "#{prefix_highlight}#[fg=brightblack,bg=black,nobold,noitalics,nounderscore]#[fg=white,bg=brightblack] ${NORD_TMUX_STATUS_DATE_FORMAT} #[fg=white,bg=brightblack,nobold,noitalics,nounderscore]#[fg=white,bg=brightblack] ${NORD_TMUX_STATUS_TIME_FORMAT} #[fg=cyan,bg=brightblack,nobold,noitalics,nounderscore]#[fg=black,bg=cyan,bold] #H "
+
+# Windows
+set -g window-status-format "#[fg=black,bg=brightblack,nobold,noitalics,nounderscore] #[fg=white,bg=brightblack]#I #[fg=white,bg=brightblack,nobold,noitalics,nounderscore] #[fg=white,bg=brightblack]#W #F #[fg=brightblack,bg=black,nobold,noitalics,nounderscore]"
+set -g window-status-current-format "#[fg=black,bg=cyan,nobold,noitalics,nounderscore] #[fg=black,bg=cyan]#I #[fg=black,bg=cyan,nobold,noitalics,nounderscore] #[fg=black,bg=cyan]#W #F #[fg=cyan,bg=black,nobold,noitalics,nounderscore]"
+set -g window-status-separator ""
+
+#########
+# Panes #
+#########
+set -g pane-border-style bg=default,fg=brightblack
+set -g pane-active-border-style bg=default,fg=blue
+set -g display-panes-colour black
+set -g display-panes-active-colour brightblack
+
+##############
+# Clock Mode #
+##############
+setw -g clock-mode-colour cyan
+
+############
+# Messages #
+############
+set -g message-style bg=brightblack,fg=cyan
+set -g message-command-style bg=brightblack,fg=cyan
+
+
+###########
+# Plugins #
+###########
+# Install
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'fcsonline/tmux-thumbs'
+set -g @plugin 'sainnhe/tmux-fzf'
+set -g @plugin 'wfxr/tmux-fzf-url'
+set -g @plugin 'omerxx/tmux-sessionx'
+set -g @plugin 'omerxx/tmux-floax'
+set -g @plugin 'arcticicestudio/nord-tmux'
+
+# Setup
+set -g @floax-width '80%'
+set -g @floax-height '80%'
+set -g @floax-border-color 'magenta'
+set -g @floax-text-color 'blue'
+set -g @floax-bind 'p'
+set -g @floax-change-path 'true'
+
+set -g @sessionx-bind-zo-new-window 'ctrl-y'
+set -g @sessionx-auto-accept 'off'
+set -g @sessionx-custom-paths '~/dotfiles'
+set -g @sessionx-bind 'o'
+set -g @sessionx-x-path '~/dotfiles'
+set -g @sessionx-window-height '85%'
+set -g @sessionx-window-width '75%'
+set -g @sessionx-zoxide-mode 'on'
+set -g @sessionx-custom-paths-subdirectories 'false'
+set -g @sessionx-filter-current 'false'
+
+set -g @continuum-restore 'on'
+
+set -g @resurrect-strategy-nvim 'session'
+
+set -g @fzf-url-fzf-options '-p 60%,30% --prompt="   " --border-label=" Open URL "'
+set -g @fzf-url-history-limit '2000'
+
+set -g @prefix_highlight_output_prefix "#[fg=brightcyan]#[bg=black]#[nobold]#[noitalics]#[nounderscore]#[bg=brightcyan]#[fg=black]"
+set -g @prefix_highlight_output_suffix ""
+set -g @prefix_highlight_copy_mode_attr "fg=brightcyan,bg=black,bold"
+
+# Install Tmux Plugin Manager if needed
+if "test ! -d ~/.tmux/plugins/tpm" \
+   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
