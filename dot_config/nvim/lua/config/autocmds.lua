@@ -17,3 +17,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.schedule(edit_watch)
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.md" },
+  callback = function()
+    vim.opt.colorcolumn = "80"
+  end,
+})

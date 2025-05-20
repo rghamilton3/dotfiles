@@ -1,6 +1,6 @@
 return {
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     -- ft = "markdown",
@@ -20,12 +20,14 @@ return {
       "nvim-lua/plenary.nvim",
     },
 
+    ---@module 'obsidian'
+    ---@type obsidian.config.ClientOpts
     opts = {
       workspaces = {
         {
           name = "Second Brain",
           -- can be a full path or relative to the current working directory
-          path = "~/Vaults/Second Brain",
+          path = vim.fn.expand("~") .. "/Vaults/Second Brain",
         },
       },
 
@@ -54,8 +56,13 @@ return {
       },
 
       completion = {
-        nvim_cmp = true,
+        nvim_cmp = false,
+        blink = true,
         min_chars = 2,
+      },
+
+      picker = {
+        name = "snacks.pick",
       },
 
       -- ui = {
