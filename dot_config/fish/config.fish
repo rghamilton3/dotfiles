@@ -22,6 +22,10 @@ fzf --fish | source
 
 zoxide init --cmd cd fish | source
 
+if status is-login
+    ssh-add ~/.ssh/github
+end
+
 function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"
