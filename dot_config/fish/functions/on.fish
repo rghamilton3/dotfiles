@@ -6,7 +6,8 @@ function on -d "Create a new note"
 
     set -l note_name (string collect "$argv")
     set -l note_name (string trim "$note_name")
-    set -l note_name (string replace -r '\s+' '-' $note_name)
+    set -l note_name (string lower "$note_name")
+    set -l note_name (string replace -a -r '\s+' '-' $note_name)
     set -l file_name inbox/(date "+%Y-%m-%d")_$note_name.md
     cd "$HOME/Vaults/Second Brain/" || return 2
 
