@@ -37,6 +37,7 @@ end
 
 alias vim="nvim"
 alias n="nvim"
+alias v="nvim"
 abbr -a -- pn pnpm
 abbr -a -- pa 'pnpm add'
 abbr -a -- pd 'pnpm dlx'
@@ -68,7 +69,7 @@ abbr -a -- parups 'paru -Syu --noconfirm; shutdown -h now'
 
 # Obsidian
 abbr -a -- oo 'cd ~/Vault/Second\ Brain/'
-abbr -a -- oa 'vim ~/Vault/Second\ Brain/inbox/*.md'
+abbr -a -- oa 'nvim ~/Vault/Second\ Brain/inbox/*.md'
 # abbr -a -- ou 'cd ~/.notion-obsidian-sync/ && node batchUpload.js --lastmod-days-window 5'
 
 # pnpm
