@@ -67,8 +67,8 @@ abbr -a -- parupr 'paru -Syu --noconfirm; reboot'
 abbr -a -- parups 'paru -Syu --noconfirm; shutdown -h now'
 
 # Obsidian
-abbr -a -- oo 'cd ~/obsidian-vault/Second\ Brain/'
-abbr -a -- oa 'vim ~/obsidian-vault/Second\ Brain/inbox/*.md'
+abbr -a -- oo 'cd ~/Vault/Second\ Brain/'
+abbr -a -- oa 'vim ~/Vault/Second\ Brain/inbox/*.md'
 # abbr -a -- ou 'cd ~/.notion-obsidian-sync/ && node batchUpload.js --lastmod-days-window 5'
 
 # pnpm
