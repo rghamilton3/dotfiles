@@ -7,7 +7,7 @@ function ong -d "Organize notes"
         echo "Processing $file"
 
         # Extract the tag from the file. This assumes the tag is on the line immediately following "tags:"
-        set -l tag (awk '/tags:/{getline; print; exit}' "$file" | sed -e 's/^ *- *//' -e 's/^ *//;s/ *$//')
+        set -l tag (awk '/tag[s]:/{getline; print; exit}' "$file" | sed -e 's/^ *- *#*//' -e 's/^ *//;s/ *$//')
 
         if test -n $tag
             echo "Found tag $tag"
