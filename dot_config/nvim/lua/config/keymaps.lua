@@ -2,6 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local map = vim.keymap.set
+local wk = require("which-key")
 
 -- ignore capitalization mistakes
 vim.cmd("ca W w")
@@ -9,8 +10,14 @@ vim.cmd("ca Q q")
 vim.cmd("ca WQ wq")
 vim.cmd("ca Wq wq")
 
-map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-map({ "n", "v" }, "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard" })
+-- These appear on the default leader key so make them pretty
+wk.add({
+  {
+    mode = { "n", "v" },
+    { "<leader>y", [["+y]], desc = "Yank to system clipboard", icon = "󱉫 " },
+    { "<leader>Y", [["+Y]], desc = "Yank line to system clipboard", icon = "󱉨 " },
+  },
+})
 
 map("n", "<leader>h", ":nohl<cr>", { desc = "Clear search highlight" })
 
