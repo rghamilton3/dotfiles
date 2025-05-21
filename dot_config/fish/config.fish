@@ -13,7 +13,6 @@ set -gx GPG_TTY (tty)
 set -gx MOZ_ENABLE_WAYLAND 1
 
 status is-interactive; and begin
-    # set fish_tmux_autostart true
     atuin init fish | source
 end
 
