@@ -85,14 +85,14 @@ set -g @floax-change-path 'true'
 
 set -g @sessionx-bind-zo-new-window 'ctrl-y'
 set -g @sessionx-auto-accept 'off'
-set -g @sessionx-custom-paths '~/dotfiles'
+set -g @sessionx-custom-paths '~/Workspace/,~/Vaults/Second Brain/inbox/'
 set -g @sessionx-bind 'o'
-set -g @sessionx-x-path '~/dotfiles'
 set -g @sessionx-window-height '85%'
 set -g @sessionx-window-width '75%'
 set -g @sessionx-zoxide-mode 'on'
-set -g @sessionx-custom-paths-subdirectories 'false'
-set -g @sessionx-filter-current 'false'
+set -g @sessionx-custom-paths-subdirectories 'true'
+set -g @sessionx-fzf-builtin-tmux 'on'
+
 
 set -g @continuum-restore 'on'
 
