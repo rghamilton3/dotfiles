@@ -132,7 +132,7 @@ set -g @sessionx-custom-paths-subdirectories 'true'
 set -g @sessionx-fzf-builtin-tmux 'on'
 
 
-set -g @continuum-restore 'on'
+set -g @continuum-restore 'off'
 
 set -g @resurrect-strategy-nvim 'session'
 
