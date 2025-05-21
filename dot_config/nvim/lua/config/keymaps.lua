@@ -84,7 +84,7 @@ map("n", "<leader>oo", ":cd /home/rghamilton3/Vaults/Second Brain<cr>", { desc =
 map(
   "n",
   "<leader>ok",
-  ":!mv '%:p' /home/rghamilton3/Vaults/Second Brain/zk<cr>:bd<cr>",
+  ":!mv '%:p' /home/rghamilton3/Vaults/Second\\ Brain/zk<cr>:bd<cr>",
   { desc = "Move to zettlekasten" }
 )
 map("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>", { desc = "Delete note" })
