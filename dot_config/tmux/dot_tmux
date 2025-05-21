@@ -15,8 +15,8 @@ set -g renumber-windows on       # renumber all windows when any window is close
 set -g set-clipboard on          # use system clipboard
 set -g status-position top       # macOS / darwin style
 setw -g mode-keys vi
-set -g focus-events on           # Needed for nvim
-set -g allow-passthrough on      # Needed for nvim snacks.images
+# set -g focus-events on           # Needed for nim
+# set -g allow-passthrough on      # Needed for nvim snacks.images
 
 ##########
 # Status #
