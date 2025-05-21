@@ -101,17 +101,30 @@ set -g message-command-style bg=brightblack,fg=cyan
 # Plugins #
 ###########
 # Install
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'fcsonline/tmux-thumbs'
-set -g @plugin 'sainnhe/tmux-fzf'
-set -g @plugin 'wfxr/tmux-fzf-url'
-set -g @plugin 'omerxx/tmux-sessionx'
-set -g @plugin 'omerxx/tmux-floax'
-set -g @plugin 'arcticicestudio/nord-tmux'
+# set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-sensible'
+# set -g @plugin 'tmux-plugins/tmux-yank'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @plugin 'fcsonline/tmux-thumbs'
+# set -g @plugin 'sainnhe/tmux-fzf'
+# set -g @plugin 'wfxr/tmux-fzf-url'
+# set -g @plugin 'omerxx/tmux-sessionx'
+# set -g @plugin 'omerxx/tmux-floax'
+# set -g @plugin 'arcticicestudio/nord-tmux'
+set -g @plugin '  \
+tmux-plugins/tpm  \
+tmux-plugins/tmux-sensible	\
+tmux-plugins/tmux-yank	\
+tmux-plugins/tmux-resurrect	\
+tmux-plugins/tmux-continuum	\
+fcsonline/tmux-thumbs	\
+sainnhe/tmux-fzf	\
+wfxr/tmux-fzf-url	\
+omerxx/tmux-sessionx	\
+omerxx/tmux-floax	\
+arcticicestudio/nord-tmux	\
+'
 
 # Setup
 set -g @floax-width '80%'
