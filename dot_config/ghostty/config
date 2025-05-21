@@ -1,2 +1,11 @@
+shell-integration = fish
+shell-integration-features = true
 font-family = FiraCode Nerd Font
 theme = nord
+window-decoration = false
+mouse-hide-while-typing = true
+window-save-state = always
+
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+alt+w=close_window
+
