@@ -18,11 +18,6 @@ setw -g mode-keys vi
 set -g focus-events on           # Needed for nvim
 set -g allow-passthrough on      # Needed for nvim snacks.images
 
-################
-# Key bindings #
-################
-bind R source-file '~/.tmux.conf'
-
 ##########
 # Status #
 ##########
