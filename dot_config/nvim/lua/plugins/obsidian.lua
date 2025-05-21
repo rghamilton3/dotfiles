@@ -65,11 +65,11 @@ return {
         name = "snacks.pick",
       },
 
-      -- ui = {
-      --   -- Disable some things below here because I set these manually for all Markdown files using treesitter
-      --   checkboxes = {},
-      --   bullets = {},
-      -- },
+      ui = {
+        -- Disable some things below here because I set these manually for all Markdown files using treesitter
+        checkboxes = {},
+        bullets = {},
+      },
     },
   },
 }
