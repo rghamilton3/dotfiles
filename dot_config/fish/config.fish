@@ -63,6 +63,7 @@ abbr -a -- cme 'chezmoi edit'
 abbr -a -- cmea 'chezmoi edit --apply'
 abbr -a -- lg lazygit
 abbr -a -- parin 'paru -S --needed'
+abbr -a -- parup 'paru -Syu --noconfirm'
 abbr -a -- parupr 'paru -Syu --noconfirm; reboot'
 abbr -a -- parups 'paru -Syu --noconfirm; shutdown -h now'
 
