@@ -1,5 +1,3 @@
-source /usr/share/cachyos-fish-config/cachyos-config.fish
-
 function fish_greeting
 end
 
@@ -11,12 +9,19 @@ set -gx PICO_EXTRAS_PATH /home/rghamilton3/workspace/pico/pico-extras
 set -gx EDITOR nvim
 set -gx GPG_TTY (tty)
 set -gx MOZ_ENABLE_WAYLAND 1
+set -gx QT_QPA_PLATFORMTHEME qt6ct
 
 status is-interactive; and begin
     atuin init fish | source
 end
 
 set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore-vcs --hidden'
+set -gx FZF_DEFAULT_OPTS "\
+--color=bg+:#414559,bg:#303446,spinner:#F2D5CF,hl:#E78284 \
+--color=fg:#C6D0F5,header:#E78284,info:#CA9EE6,pointer:#F2D5CF \
+--color=marker:#BABBF1,fg+:#C6D0F5,prompt:#CA9EE6,hl+:#E78284 \
+--color=selected-bg:#51576D \
+--color=border:#414559,label:#C6D0F5"
 fzf --fish | source
 
 zoxide init --cmd cd fish | source

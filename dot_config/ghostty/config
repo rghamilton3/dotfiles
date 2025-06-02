@@ -1,9 +1,9 @@
 shell-integration = fish
 shell-integration-features = true
 font-family = FiraCode Nerd Font
-theme = nord
-window-decoration = false
+theme = catppuccin-frappe.conf
 mouse-hide-while-typing = true
+window-decoration = false
 window-save-state = always
 
 keybind = ctrl+shift+w=close_surface
