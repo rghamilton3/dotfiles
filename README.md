@@ -12,7 +12,7 @@
    - [fish](https://www.fishshell.com) - Shell of choice
    - [fisher](https://zimfw.sh) - A plugin manager for Fish
    - [neovim](https://neovim.io) - Editor of choice
-   - [paru](https://github.com/Morganamilo/paru) -
+   - [yay](https://github.com/Jguer/yay) -
      [AUR](https://aur.archlinux.org/) helper
    - [fzf](https://github.com/junegunn/fzf) - Fuzzy file finder
    - [fd](https://github.com/sharkdp/fd) -
@@ -20,7 +20,7 @@
    - [ripgrep](https://github.com/BurntSushi/ripgrep) -
      A better silver-searcher and grep
    - [zoxide](https://github.com/ajeetdsouza/zoxide) - A smarter `cd` command
-   - [exa](https://eza.rocks) - A modern replacement for `ls`
+   - [eza](https://eza.rocks) - A modern replacement for `ls`
    - [bat](https://github.com/sharkdp/bat) - A `cat` clone with wings
    - [btop](https://github.com/aristocratos/btop) - A better `top`
    - [atuin](https://atuin.sh/) - Sync, search, and backup shell history
