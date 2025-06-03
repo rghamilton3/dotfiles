@@ -67,10 +67,10 @@ abbr -a -- cmap 'chezmoi apply'
 abbr -a -- cme 'chezmoi edit'
 abbr -a -- cmea 'chezmoi edit --apply'
 abbr -a -- lg lazygit
-abbr -a -- yin 'paru -S --needed'
-abbr -a -- yup 'paru -Syu --noconfirm'
-abbr -a -- yupr 'paru -Syu --noconfirm; reboot'
-abbr -a -- yups 'paru -Syu --noconfirm; shutdown -h now'
+abbr -a -- yin 'yay -S --needed'
+abbr -a -- yup 'yay -Syu'
+abbr -a -- yupr 'yay -Syu --noconfirm; reboot'
+abbr -a -- yups 'yay -Syu --noconfirm; shutdown -h now'
 
 # Obsidian
 abbr -a -- oo 'cd ~/Vaults/Second\ Brain/'
