@@ -68,7 +68,9 @@ abbr -a -- cme 'chezmoi edit'
 abbr -a -- cmea 'chezmoi edit --apply'
 abbr -a -- lg lazygit
 abbr -a -- yin 'yay -S --needed'
-abbr -a -- yup 'yay -Syu'
+abbr -a -- yrm 'yay -R'
+abbr -a -- yrma 'yay -Rncs'
+abbr -a -- yup 'yay -Syu --noconfirm'
 abbr -a -- yupr 'yay -Syu --noconfirm; reboot'
 abbr -a -- yups 'yay -Syu --noconfirm; shutdown -h now'
 
