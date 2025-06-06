@@ -1,7 +1,4 @@
 return {
-  -- {
-  --   "shaunsingh/nord.nvim",
-  -- },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -16,6 +13,16 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "catppuccin",
+    },
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        theme = "catppuccin",
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
+      },
     },
   },
 }
