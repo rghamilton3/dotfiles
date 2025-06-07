@@ -14,7 +14,6 @@ set -gx QT_QPA_PLATFORMTHEME qt6ct
 status is-interactive; and begin
     set fish_tmux_autostart true
     atuin init fish | source
-    atuin daemon &
 end
 
 set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore-vcs --hidden'
