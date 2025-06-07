@@ -43,6 +43,7 @@ end
 alias vim="nvim"
 alias n="nvim"
 alias v="nvim"
+alias cat="bat"
 abbr -a -- pn pnpm
 abbr -a -- pa 'pnpm add'
 abbr -a -- pd 'pnpm dlx'
