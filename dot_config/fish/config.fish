@@ -87,4 +87,4 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-pyenv init - | source
+mise activate fish | source
